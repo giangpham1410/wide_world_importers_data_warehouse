@@ -25,7 +25,7 @@ WITH
 SELECT
   dim_product.product_key
   , dim_product.product_name
-  , dim_supplier.supplier_key
+  , dim_product.supplier_key
   , dim_supplier.supplier_name
   , dim_product.brand_name
 FROM dim_product__cast_type dim_product
