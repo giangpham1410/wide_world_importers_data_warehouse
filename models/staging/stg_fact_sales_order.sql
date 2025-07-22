@@ -11,5 +11,14 @@ WITH
     FROM fact_sales_order__source
 )
 
-SELECT *
-FROM fact_sales_order__rename_column
+, fact_sales_order__cast_type AS (
+    SELECT
+      CAST(sales_order_key AS INTEGER) AS sales_order_key
+      , CAST(customer_key AS INTEGER) AS customer_key
+    FROM fact_sales_order__rename_column
+)
+
+SELECT
+  sales_order_key
+  , customer_key
+FROM fact_sales_order__cast_type
