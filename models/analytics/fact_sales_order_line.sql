@@ -1,7 +1,7 @@
 SELECT 
-  order_line_id AS sales_order_line_key
-  , unit_price
-  , quantity
-  , stock_item_id AS product_key
-  , unit_price * quantity AS gross_amount
+  CAST(order_line_id AS INTEGER) AS sales_order_line_key
+  , CAST(unit_price AS NUMERIC) AS unit_price
+  , CAST(quantity AS INTEGER) AS quantity
+  , CAST(stock_item_id AS INTEGER) AS product_key
+  , CAST(unit_price AS NUMERIC) * CAST(quantity AS INTEGER) AS gross_amount
 FROM `vit-lam-data.wide_world_importers.sales__order_lines`
