@@ -11,7 +11,14 @@ WITH
     FROM dim_customer__source
 )
 
+, dim_customer__cast_type AS (
+    SELECT
+      CAST(customer_key AS INTEGER) customer_key
+      , CAST(customer_name AS STRING) customer_name
+    FROM dim_customer__rename_column
+)
 
-SELECT 
-  *
-FROM dim_customer__rename_column
+SELECT
+  customer_key
+  , customer_name
+FROM dim_customer__cast_type
