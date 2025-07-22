@@ -12,6 +12,14 @@ WITH
     FROM dim_supplier__source
 )
 
+, dim_supplier__cast_type AS (
+    SELECT
+      CAST(supplier_key AS INTEGER) AS supplier_key
+      , CAST(supplier_name AS STRING) AS supplier_name
+    FROM dim_supplier__rename_column
+)
 
-SELECT *
-FROM dim_supplier__rename_column
+SELECT
+  supplier_key
+  , supplier_name
+FROM dim_supplier__cast_type
