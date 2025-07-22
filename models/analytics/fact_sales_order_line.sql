@@ -25,10 +25,12 @@ WITH
 )
 
 SELECT 
-  sales_order_line_key
-  , sales_order_key
-  , product_key
-  , quantity
-  , unit_price
-  , quantity * unit_price AS gross_amount
-FROM fact_sales_order_line__cast_type
+    fact_so_line.sales_order_line_key
+  , fact_so_line.sales_order_key
+  , fact_so_header.customer_key
+  , fact_so_line.product_key
+  , fact_so_line.quantity
+  , fact_so_line.unit_price
+  , fact_so_line.quantity * fact_so_line.unit_price AS gross_amount
+FROM fact_sales_order_line__cast_type fact_so_line
+  LEFT JOIN `wide-world-importers-dwh.wide_world_importers_dwh_staging.stg_fact_sales_order` fact_so_header ON fact_so_line.sales_order_key = fact_so_header.sales_order_key
