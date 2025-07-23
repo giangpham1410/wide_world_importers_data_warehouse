@@ -10,7 +10,7 @@ WITH
         , stock_item_name AS product_name
         , supplier_id AS supplier_key
         , brand AS brand_name
-        , is_chiller_stock
+        , is_chiller_stock AS is_chiller_stock_boolean
       FROM dim_product__source
 )
 
@@ -20,7 +20,7 @@ WITH
         , CAST(product_name AS STRING) AS product_name
         , CAST(supplier_key AS INTEGER) AS supplier_key
         , CAST(brand_name AS STRING) AS brand_name
-        , CAST(is_chiller_stock AS BOOLEAN) AS is_chiller_stock_boolean
+        , CAST(is_chiller_stock_boolean AS BOOLEAN) AS is_chiller_stock_boolean
       FROM dim_product__rename_column
 )
 
@@ -30,11 +30,11 @@ WITH
         , CASE
             WHEN is_chiller_stock_boolean IS TRUE THEN 'Chiller Stock'
             WHEN is_chiller_stock_boolean IS FALSE THEN 'Not Chiller Stock'
-            ELSE 'Undefined'
+            WHEN is_chiller_stock_boolean IS NULL THEN 'Undefined'
+            ELSE 'Invalid'
           END AS is_chiller_stock
       FROM dim_product__cast_type 
   )
-
 
 
 SELECT
