@@ -66,7 +66,7 @@ SELECT
     dim_customer.customer_key
   , dim_customer.customer_category_key
   , dim_customer_category.customer_category_name
-  , dim_customer.buying_group_key
+  , COALESCE(dim_customer.buying_group_key, 0) AS buying_group_key
   , dim_buying_group.buying_group_name
   , dim_customer.customer_name
   , dim_customer.is_on_credit_hold
