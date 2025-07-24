@@ -68,10 +68,11 @@ WITH
 SELECT
   dim_product.product_key
   , dim_product.product_name
-  , dim_product.supplier_key
-  , COALESCE(dim_supplier.supplier_name, 'Invalid') AS supplier_name
   , COALESCE(dim_product.brand_name, 'Undefined') AS brand_name
   , dim_product.is_chiller_stock
+
+  , dim_product.supplier_key
+  , COALESCE(dim_supplier.supplier_name, 'Invalid') AS supplier_name
 FROM dim_product__add_undefined_record dim_product
   LEFT JOIN {{ ref('dim_supplier') }} dim_supplier
     ON dim_product.supplier_key = dim_supplier.supplier_key
