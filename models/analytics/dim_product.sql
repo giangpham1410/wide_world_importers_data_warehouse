@@ -53,7 +53,7 @@ WITH
       , supplier_key
       , brand_name
       , is_chiller_stock
-    FROM dim_product__convert_boolean
+    FROM dim_product__handle_null
 
     UNION ALL
     SELECT
