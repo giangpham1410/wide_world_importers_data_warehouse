@@ -33,7 +33,7 @@ WITH
 
 SELECT
   sales_order_key
+  , order_date
   , customer_key
   , picked_by_person_key
-  , order_date
 FROM fact_sales_order__handle_null
