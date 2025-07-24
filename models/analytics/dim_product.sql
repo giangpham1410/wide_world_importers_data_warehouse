@@ -36,6 +36,7 @@ WITH
     FROM dim_product__cast_type 
 )
 
+-- xử lý NULL ở những cột NULL từ gốc
 , dim_product__handle_null AS (
     SELECT
       product_key
