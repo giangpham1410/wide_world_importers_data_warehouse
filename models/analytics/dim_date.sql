@@ -35,3 +35,4 @@ SELECT
       ELSE 'Invalid'
       END AS is_weekday_or_weekend
 FROM dim_date__enrich
+
