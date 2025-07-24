@@ -25,12 +25,14 @@ WITH
 )
 
 SELECT 
-    fact_so_line.sales_order_line_key
-  , fact_so_line.sales_order_key
+  fact_so_line.sales_order_line_key
   , fact_so_header.order_date
+
+  , fact_so_line.sales_order_key
   , COALESCE(fact_so_header.customer_key, -1) AS customer_key
   , fact_so_line.product_key
   , COALESCE(fact_so_header.picked_by_person_key, -1) AS picked_by_person_key
+
   , fact_so_line.quantity
   , fact_so_line.unit_price
   , fact_so_line.quantity * fact_so_line.unit_price AS gross_amount
