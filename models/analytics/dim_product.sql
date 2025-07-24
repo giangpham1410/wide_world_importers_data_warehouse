@@ -36,6 +36,16 @@ WITH
     FROM dim_product__cast_type 
 )
 
+, dim_product__handle_null AS (
+    SELECT
+      product_key
+      , product_name
+      , supplier_key
+      , COALESCE(brand_name, 'Undefined') AS brand_name
+      , is_chiller_stock
+    FROM dim_product__convert_boolean
+)
+
 , dim_product__add_undefined_record AS (
     SELECT
       product_key
@@ -68,7 +78,7 @@ WITH
 SELECT
   dim_product.product_key
   , dim_product.product_name
-  , COALESCE(dim_product.brand_name, 'Undefined') AS brand_name
+  , dim_product.brand_name
   , dim_product.is_chiller_stock
 
   , dim_product.supplier_key
