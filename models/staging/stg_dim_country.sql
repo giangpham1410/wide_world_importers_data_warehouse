@@ -55,14 +55,9 @@ WITH
 )
 
 
-SELECT * FROM dim_country__handle_null
-
-
-/*
 SELECT
   country_key
   , country_name
   , country_code
   , region
 FROM dim_country__add_undefined_record
-*/
