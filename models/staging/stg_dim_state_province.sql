@@ -52,10 +52,13 @@ WITH
 
 
 SELECT
+  -- PROVINCE
     dim_state_province.state_province_key
   , dim_state_province.state_province_name
   , dim_state_province.state_province_code
   , dim_state_province.sales_territory
+
+  -- COUNTRY
   , dim_state_province.country_key
   , COALESCE(dim_country.country_name, 'Invalid') AS country_name
   , COALESCE(dim_country.country_code, 'Invalid') AS country_code
