@@ -12,5 +12,13 @@ WITH
     FROM dim_geography__source
 )
 
+, dim_geography__cast_type AS (
+    SELECT
+      CAST(city_key AS INTEGER) AS city_key
+      , CAST(city_name AS STRING) AS city_name
+      , CAST(state_province_key AS INTEGER) AS state_province_key
+    FROM dim_geography__rename_column
+)
+
 SELECT *
-FROM dim_geography__rename_column
+FROM dim_geography__cast_type
