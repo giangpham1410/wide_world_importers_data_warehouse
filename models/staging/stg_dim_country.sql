@@ -55,7 +55,7 @@ WITH
 )
 
 
-SELECT * FROM dim_country__cast_type
+SELECT * FROM dim_country__handle_null
 
 
 /*
