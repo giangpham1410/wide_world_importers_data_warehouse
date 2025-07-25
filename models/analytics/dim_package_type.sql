@@ -11,6 +11,13 @@ WITH
     FROM dim_package_type__source
 )
 
+, dim_package_type__cast_type AS (
+    SELECT
+      CAST(package_type_key AS INTEGER) AS package_type_key
+      , CAST(package_type_name AS STRING) AS package_type_name
+    FROM dim_package_type__rename_column
+)
+
 
 SELECT *
-FROM dim_package_type__rename_column
+FROM dim_package_type__cast_type
