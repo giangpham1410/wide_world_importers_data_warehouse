@@ -42,7 +42,21 @@ WITH
 
 
 SELECT
-  city_key
-  , city_name
-  , state_province_key
-FROM dim_geography__add_undefined_record
+  -- CITY
+    dim_geography.city_key
+  , dim_geography.city_name
+
+  -- PROVINCE
+  , dim_geography.state_province_key
+  , COALESCE(dim_state_province.state_province_name, 'Invalid') AS state_province_name
+  , COALESCE(dim_state_province.state_province_code, 'Invalid') AS state_province_code
+  , COALESCE(dim_state_province.sales_territory, 'Invalid') AS sales_territory
+
+  -- COUNTRY
+  , COALESCE(dim_state_province.country_key, -1) AS country_key
+  , COALESCE(dim_state_province.country_name, 'Invalid') AS country_name
+  , COALESCE(dim_state_province.country_code, 'Invalid') AS country_code
+  , COALESCE(dim_state_province.region, 'Invalid') AS region
+FROM dim_geography__add_undefined_record AS dim_geography
+  LEFT JOIN {{ ref('stg_dim_state_province') }} AS dim_state_province
+    ON dim_geography.state_province_key = dim_state_province.state_province_key
