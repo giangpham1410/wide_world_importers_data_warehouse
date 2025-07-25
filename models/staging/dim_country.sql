@@ -22,6 +22,15 @@ WITH
     FROM dim_country__rename_column
 )
 
+, dim_country__handle_null AS (
+    SELECT
+      country_key
+      , country_name
+      , COALESCE(country_code, 'Undefined') AS country_code
+      , region
+    FROM dim_country__cast_type
+)
+
 
 SELECT *
-FROM dim_country__cast_type
+FROM dim_country__handle_null
