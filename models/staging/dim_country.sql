@@ -31,6 +31,33 @@ WITH
     FROM dim_country__cast_type
 )
 
+, dim_country__add_undefined_record AS (
+    SELECT
+      country_key
+      , country_name
+      , country_code
+      , region
+    FROM dim_country__handle_null
 
-SELECT *
-FROM dim_country__handle_null
+    UNION ALL
+    SELECT
+      0 AS country_key
+      , 'Undefined' AS country_name
+      , 'Undefined' AS country_code
+      , 'Undefined' AS region
+    
+    UNION ALL
+    SELECT
+      -1 AS country_key
+      , 'Invalid' AS country_name
+      , 'Invalid' AS country_code
+      , 'Invalid' AS region
+)
+
+
+SELECT
+  country_key
+  , country_name
+  , country_code
+  , region
+FROM dim_country__add_undefined_record
