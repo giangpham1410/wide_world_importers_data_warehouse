@@ -55,7 +55,7 @@ WITH
 )
 
 
-SELECT * FROM dim_country__rename_column
+SELECT * FROM dim_country__cast_type
 
 
 /*
