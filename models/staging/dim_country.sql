@@ -13,6 +13,15 @@ WITH
     FROM dim_country__source
 )
 
+, dim_country__cast_type AS (
+    SELECT
+      CAST(country_key AS INTEGER) AS country_key
+      , CAST(country_name AS STRING) AS country_name
+      , CAST(country_code AS STRING) AS country_code
+      , CAST(region AS STRING) AS region
+    FROM dim_country__rename_column
+)
+
 
 SELECT *
-FROM dim_country__rename_column
+FROM dim_country__cast_type
