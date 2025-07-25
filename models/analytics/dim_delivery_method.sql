@@ -11,6 +11,13 @@ WITH
     FROM dim_delivery_method__source
 )
 
+, dim_delivery_method__cast_type AS (
+    SELECT
+      CAST(delivery_method_key AS INTEGER) AS delivery_method_key
+      , CAST(delivery_method_name AS STRING) AS delivery_method_name
+    FROM dim_delivery_method__rename_column
+)
+
 
 SELECT *
-FROM dim_delivery_method__rename_column
+FROM dim_delivery_method__cast_type
