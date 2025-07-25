@@ -20,5 +20,29 @@ WITH
     FROM dim_geography__rename_column
 )
 
-SELECT *
-FROM dim_geography__cast_type
+, dim_geography__add_undefined_record AS (
+    SELECT
+      city_key
+      , city_name
+      , state_province_key
+    FROM dim_geography__cast_type
+
+    UNION ALL
+    SELECT
+        0 AS city_key
+      , 'Undefined' AS city_name
+      , 0 AS state_province_key
+
+    UNION ALL
+    SELECT
+        -1 AS city_key
+      , 'Invalid' AS city_name
+      , -1 AS state_province_key
+)
+
+
+SELECT
+  city_key
+  , city_name
+  , state_province_key
+FROM dim_geography__add_undefined_record
