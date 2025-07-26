@@ -9,6 +9,9 @@ WITH
     SELECT
       person_id AS person_key
       , full_name AS full_name
+      , preferred_name
+      , is_employee
+      , is_salesperson
     FROM dim_person__source
 )
 
@@ -36,7 +39,11 @@ WITH
       , 'Invalid' AS full_name
 )
 
+SELECT * FROM dim_person__rename_column
+
+/*
 SELECT
   person_key
   , full_name
 FROM dim_person__add_undefined_record
+*/
