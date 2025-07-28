@@ -151,6 +151,8 @@ WITH
       , -1 AS postal_city_key
 )
 
+
+-- MAIN QUERY
 SELECT
   -- CUSTOMER
     dim_customer.customer_key
@@ -165,45 +167,45 @@ SELECT
 
   -- CUSTOMER CATEGORY
   , dim_customer.customer_category_key
-  , dim_customer_category.customer_category_name
+  , COALESCE(dim_customer_category.customer_category_name, 'Invalid') AS customer_category_name
   
   -- BUYING GROUP
   , dim_customer.buying_group_key
-  , dim_buying_group.buying_group_name
+  , COALESCE(dim_buying_group.buying_group_name, 'Invalid') AS buying_group_name
 
   -- CONTACT
   , dim_customer.bill_to_customer_key
-  , dim_bill_to_customer.full_name AS bill_to_customer_full_name
+  , COALESCE(dim_bill_to_customer.full_name, 'Invalid') AS bill_to_customer_full_name
 
   , dim_customer.primary_contact_person_key
-  , dim_primary_contact_person.full_name AS primary_contact_person_full_name
+  , COALESCE(dim_primary_contact_person.full_name, 'Invalid') AS primary_contact_person_full_name
 
   , dim_customer.alternate_contact_person_key
-  , dim_alternate_contact_person.full_name AS alternate_contact_person_full_name
+  , COALESCE(dim_alternate_contact_person.full_name, 'Invalid') AS alternate_contact_person_full_name
 
   -- DELIVERY METHOD
   , dim_customer.delivery_method_key
-  , dim_delivery_method.delivery_method_name
+  , COALESCE(dim_delivery_method.delivery_method_name, 'Invalid') AS delivery_method_name
 
   -- DELIVERY INFO
   , dim_customer.delivery_city_key
-  , dim_delivery_geography.city_name AS delivery_city_name
+  , COALESCE(dim_delivery_geography.city_name, 'Invalid') AS delivery_city_name
   , dim_delivery_geography.state_province_key AS delivery_state_province_key
-  , dim_delivery_geography.state_province_name AS delivery_state_province_name
-  , dim_delivery_geography.state_province_code AS delivery_state_province_code
-  , dim_delivery_geography.sales_territory AS delivery_sales_territory
+  , COALESCE(dim_delivery_geography.state_province_name, 'Invalid') AS delivery_state_province_name
+  , COALESCE(dim_delivery_geography.state_province_code, 'Invalid') AS delivery_state_province_code
+  , COALESCE(dim_delivery_geography.sales_territory, 'Invalid') AS delivery_sales_territory
   , dim_delivery_geography.country_key AS delivery_country_key
-  , dim_delivery_geography.country_name AS delivery_country_name
+  , COALESCE(dim_delivery_geography.country_name, 'Invalid') AS delivery_country_name
 
   -- POSTAL INFO
   , dim_customer.postal_city_key
-  , dim_postal_geography.city_name AS postal_city_name
+  , COALESCE(dim_postal_geography.city_name, 'Invalid') AS postal_city_name
   , dim_postal_geography.state_province_key AS postal_state_province_key
-  , dim_postal_geography.state_province_name AS postal_state_province_name
-  , dim_postal_geography.state_province_code AS postal_state_province_code
-  , dim_postal_geography.sales_territory AS postal_sales_territory
+  , COALESCE(dim_postal_geography.state_province_name, 'Invalid') AS postal_state_province_name
+  , COALESCE(dim_postal_geography.state_province_code, 'Invalid') AS postal_state_province_code
+  , COALESCE(dim_postal_geography.sales_territory, 'Invalid') AS postal_sales_territory
   , dim_postal_geography.country_key AS postal_country_key
-  , dim_postal_geography.country_name AS postal_country_name
+  , COALESCE(dim_postal_geography.country_name, 'Invalid') AS postal_country_name
 
 FROM dim_customer__add_undefined_record dim_customer
   LEFT JOIN {{ ref('stg_dim_customer_category') }} AS dim_customer_category
