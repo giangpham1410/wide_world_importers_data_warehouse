@@ -81,20 +81,20 @@ SELECT
 
   -- SUPPLIER CATEGORY
   , dim_supplier.supplier_category_key
-  , dim_supplier_category.supplier_category_name
+  , COALESCE(dim_supplier_category.supplier_category_name, 'Invalid') AS supplier_category_name
 
   -- DELIVERY METHOD
   , dim_supplier.delivery_method_key
-  , dim_delivery_method.delivery_method_name
+  , COALESCE(dim_delivery_method.delivery_method_name, 'Invalid') AS delivery_method_name
 
   -- GEOGRAPHY
   , dim_supplier.delivery_city_key
-  , dim_delivery_geography.city_name AS delivery_city_name
-  , dim_delivery_geography.state_province_name AS delivery_state_province_name
+  , COALESCE(dim_delivery_geography.city_name, 'Invalid') AS delivery_city_name
+  , COALESCE(dim_delivery_geography.state_province_name, 'Invalid') AS delivery_state_province_name
 
   -- CONTACT
   , dim_supplier.primary_contact_person_key
-  , dim_person.full_name AS primary_contact_name
+  , COALESCE(dim_person.full_name, 'Invalid') AS primary_contact_name
 
 FROM dim_supplier__add_undefined_record AS dim_supplier
   LEFT JOIN {{ ref('stg_dim_supplier_category') }} AS dim_supplier_category
