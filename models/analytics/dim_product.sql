@@ -28,9 +28,19 @@ WITH
     SELECT
       CAST(product_key AS INTEGER) AS product_key
       , CAST(product_name AS STRING) AS product_name
-      , CAST(supplier_key AS INTEGER) AS supplier_key
       , CAST(brand_name AS STRING) AS brand_name
+      , CAST(size AS STRING) AS size
       , CAST(is_chiller_stock_boolean AS BOOLEAN) AS is_chiller_stock_boolean
+      , CAST(unit_price AS NUMERIC) AS unit_price
+      , CAST(recommended_retail_price AS NUMERIC) AS recommended_retail_price
+      , CAST(lead_time_days AS INTEGER) AS lead_time_days
+      , CAST(quantity_per_outer AS INTEGER) AS quantity_per_outer
+      , CAST(tax_rate AS NUMERIC) AS tax_rate
+      , CAST(typical_weight_per_unit AS NUMERIC) AS typical_weight_per_unit
+      , CAST(supplier_key AS INTEGER) AS supplier_key
+      , CAST(color_key AS INTEGER) AS color_key
+      , CAST(unit_package_type_key AS INTEGER) AS unit_package_type_key
+      , CAST(outer_package_type_key AS INTEGER) AS outer_package_type_key
     FROM dim_product__rename_column
 )
 
@@ -86,7 +96,7 @@ WITH
 )
 
 SELECT *
-FROM dim_product__rename_column
+FROM dim_product__cast_type
 
 /*
 SELECT
