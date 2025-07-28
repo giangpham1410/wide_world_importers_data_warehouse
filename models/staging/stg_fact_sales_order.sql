@@ -23,9 +23,16 @@ WITH
 , fact_sales_order__cast_type AS (
     SELECT
       CAST(sales_order_key AS INTEGER) AS sales_order_key
+      , CAST(is_undersupply_backordered_boolean AS BOOLEAN) AS is_undersupply_backordered_boolean
+      , CAST(customer_purchase_order_number AS STRING) AS customer_purchase_order_number
       , CAST(order_date AS DATE) AS order_date
+      , CAST(expected_delivery_date AS DATE) AS expected_delivery_date
+      , CAST(so_picking_completed_at AS DATETIME) AS so_picking_completed_at
       , CAST(customer_key AS INTEGER) AS customer_key
       , CAST(picked_by_person_key AS INTEGER) AS picked_by_person_key
+      , CAST(contact_person_key AS INTEGER) AS contact_person_key
+      , CAST(salesperson_person_key AS INTEGER) AS salesperson_person_key
+      , CAST(backorder_order_key AS INTEGER) AS backorder_order_key
     FROM fact_sales_order__rename_column
 )
 
@@ -40,4 +47,4 @@ WITH
 
 
 SELECT *
-FROM fact_sales_order__rename_column
+FROM fact_sales_order__cast_type
