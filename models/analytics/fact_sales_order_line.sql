@@ -9,8 +9,13 @@ WITH
       order_line_id AS sales_order_line_key
       , order_id AS sales_order_key
       , stock_item_id AS product_key
-      , quantity
+      , quantity AS quantity_sold
       , unit_price
+      , description
+      , picking_completed_when AS so_line_picking_completed_at
+      , package_type_id AS package_type_key
+      , tax_rate
+      , picked_quantity
     FROM fact_sales_order_line__source
 )
 
@@ -19,11 +24,15 @@ WITH
       CAST(sales_order_line_key AS INTEGER) AS sales_order_line_key
       , CAST(sales_order_key AS INTEGER) AS sales_order_key
       , CAST(product_key AS INTEGER) AS product_key
-      , CAST(quantity AS INTEGER) AS quantity
+      , CAST(quantity_sold AS INTEGER) AS quantity_sold
       , CAST(unit_price AS NUMERIC) AS unit_price
     FROM fact_sales_order_line__rename_column
 )
 
+SELECT *
+FROM fact_sales_order_line__rename_column
+
+/*
 SELECT 
   fact_so_line.sales_order_line_key
   , fact_so_header.order_date
@@ -39,3 +48,4 @@ SELECT
 FROM fact_sales_order_line__cast_type fact_so_line
   LEFT JOIN {{ ref('stg_fact_sales_order') }} fact_so_header
     ON fact_so_line.sales_order_key = fact_so_header.sales_order_key
+*/
