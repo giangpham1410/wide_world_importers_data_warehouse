@@ -151,7 +151,39 @@ WITH
       , -1 AS postal_city_key
 )
 
-SELECT * FROM dim_customer__add_undefined_record
+SELECT
+  -- CUSTOMER
+    dim_customer.customer_key
+  , dim_customer.customer_name
+  , dim_customer.is_on_credit_hold
+  , dim_customer.is_statement_sent
+  , dim_customer.phone_number
+  , dim_customer.account_opened_date
+  , dim_customer.credit_limit
+  , dim_customer.standard_discount_pct
+  , dim_customer.payment_days
+
+  -- CUSTOMER CATEGORY
+  , dim_customer.customer_category_key
+  , dim_customer_category.customer_category_name
+  
+  -- BUYING GROUP
+  , buying_group_key
+
+  -- CONTACT
+  , dim_customer.bill_to_customer_key
+  , dim_customer.primary_contact_person_key
+  , dim_customer.alternate_contact_person_key
+
+  -- DELIVERY METHOD
+  , dim_customer.delivery_method_key
+
+  -- CITY
+  , dim_customer.delivery_city_key
+  , dim_customer.postal_city_key
+FROM dim_customer__add_undefined_record dim_customer
+  LEFT JOIN {{ ref('stg_dim_customer_category') }} AS dim_customer_category
+    ON dim_customer.customer_category_key = dim_customer_category.customer_category_key
 
 /*
 SELECT
