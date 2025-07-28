@@ -25,6 +25,26 @@ WITH
     FROM dim_person__rename_column
 )
 
+, dim_person__convert_boolean AS (
+    SELECT
+      person_key
+      , full_name
+      , preferred_name
+      , CASE
+          WHEN is_employee_boolean IS TRUE THEN 'Employee'
+          WHEN is_employee_boolean IS FALSE THEN 'Not Employee'
+          WHEN is_employee_boolean IS NULL THEN 'Undefined'
+          ELSE 'Invalid'
+          END AS is_employee
+      , CASE
+          WHEN is_salesperson_boolean IS TRUE THEN 'Salesperson'
+          WHEN is_salesperson_boolean IS FALSE THEN 'Not Salesperson'
+          WHEN is_salesperson_boolean IS NULL THEN 'Undefined'
+          ELSE 'Invalid'
+          END AS is_salesperson
+    FROM dim_person__cast_type
+)
+
 , dim_person__add_undefined_record AS (
     SELECT
       person_key
@@ -43,7 +63,7 @@ WITH
 )
 
 -- TESTING
-SELECT * FROM dim_person__cast_type
+SELECT * FROM dim_person__convert_boolean
 
 /*
 SELECT
