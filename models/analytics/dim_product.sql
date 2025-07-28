@@ -151,6 +151,8 @@ SELECT
   -- SUPPLIER
   , dim_product.supplier_key
   , dim_supplier.supplier_name
+  , dim_supplier.supplier_category_key
+  , dim_supplier.supplier_category_name
 
   -- COLOR
   , dim_product.color_key
