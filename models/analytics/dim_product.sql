@@ -8,9 +8,19 @@ WITH
     SELECT
       stock_item_id AS product_key
       , stock_item_name AS product_name
-      , supplier_id AS supplier_key
       , brand AS brand_name
+      , size
       , is_chiller_stock AS is_chiller_stock_boolean
+      , unit_price
+      , recommended_retail_price
+      , lead_time_days
+      , quantity_per_outer
+      , tax_rate
+      , typical_weight_per_unit
+      , supplier_id AS supplier_key
+      , color_id AS color_key
+      , unit_package_id AS unit_package_type_key
+      , outer_package_id AS outer_package_type_key
     FROM dim_product__source
 )
 
@@ -75,7 +85,10 @@ WITH
 
 )
 
+SELECT *
+FROM dim_product__rename_column
 
+/*
 SELECT
   dim_product.product_key
   , dim_product.product_name
@@ -87,3 +100,4 @@ SELECT
 FROM dim_product__add_undefined_record dim_product
   LEFT JOIN {{ ref('dim_supplier') }} dim_supplier
     ON dim_product.supplier_key = dim_supplier.supplier_key
+*/
