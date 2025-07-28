@@ -173,8 +173,13 @@ SELECT
 
   -- CONTACT
   , dim_customer.bill_to_customer_key
+  , dim_bill_to_customer.full_name AS bill_to_customer_full_name
+
   , dim_customer.primary_contact_person_key
+  , dim_primary_contact_person.full_name AS primary_contact_person_full_name
+
   , dim_customer.alternate_contact_person_key
+  , dim_alternate_contact_person.full_name AS alternate_contact_person_full_name
 
   -- DELIVERY METHOD
   , dim_customer.delivery_method_key
@@ -186,24 +191,18 @@ SELECT
 FROM dim_customer__add_undefined_record dim_customer
   LEFT JOIN {{ ref('stg_dim_customer_category') }} AS dim_customer_category
     ON dim_customer.customer_category_key = dim_customer_category.customer_category_key
+
   LEFT JOIN {{ ref('stg_dim_buying_group') }} AS dim_buying_group
     ON dim_customer.buying_group_key = dim_buying_group.buying_group_key
+
   LEFT JOIN {{ ref('dim_delivery_method') }} AS dim_delivery_method
     ON dim_customer.delivery_method_key = dim_delivery_method.delivery_method_key
 
-/*
-SELECT
-  dim_customer.customer_key
-  , dim_customer.customer_name
-  , dim_customer.is_on_credit_hold
+  LEFT JOIN {{ ref('dim_person') }} AS dim_bill_to_customer
+    ON dim_customer.bill_to_customer_key = dim_bill_to_customer.person_key
 
-  , dim_customer.customer_category_key
-  , COALESCE(dim_customer_category.customer_category_name, 'Invalid') AS customer_category_name
-  , dim_customer.buying_group_key
-  , COALESCE(dim_buying_group.buying_group_name, 'Invalid') AS buying_group_name
-FROM dim_customer__add_undefined_record dim_customer
-  LEFT JOIN {{ ref('stg_dim_customer_category') }} dim_customer_category
-    ON dim_customer.customer_category_key = dim_customer_category.customer_category_key
-  LEFT JOIN {{ ref('stg_dim_buying_group') }} dim_buying_group
-    ON dim_customer.buying_group_key = dim_buying_group.buying_group_key
-*/
+  LEFT JOIN {{ ref('dim_person') }} AS dim_primary_contact_person
+    ON dim_customer.primary_contact_person_key = dim_primary_contact_person.person_key
+
+  LEFT JOIN {{ ref('dim_person') }} AS dim_alternate_contact_person
+    ON dim_customer.alternate_contact_person_key = dim_alternate_contact_person.person_key
