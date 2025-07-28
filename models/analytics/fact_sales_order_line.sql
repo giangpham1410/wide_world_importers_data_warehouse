@@ -34,6 +34,15 @@ WITH
     FROM fact_sales_order_line__rename_column
 )
 
+, fact_sales_order_line__calculate_measure AS (
+    SELECT
+      *
+      , unit_price * quantity_sold AS gross_amount
+      , unit_price * quantity_sold * tax_rate AS tax_amount -- gross_amount * tax_rate
+      , (unit_price * quantity_sold) - (unit_price * quantity_sold * tax_rate) AS net_amount -- gross_amount - tax_amount
+    FROM fact_sales_order_line__cast_type
+)
+
 SELECT
   fact_so_line.sales_order_line_key
   , fact_so_line.description
@@ -63,8 +72,10 @@ SELECT
   , fact_so_line.picked_quantity
 
   -- CALCULATED MEASURE
-  , fact_so_line.unit_price * fact_so_line.quantity_sold AS gross_amount
-FROM fact_sales_order_line__cast_type AS fact_so_line
+  , fact_so_line.gross_amount
+  , fact_so_line.tax_amount
+  , fact_so_line.net_amount
+FROM fact_sales_order_line__calculate_measure AS fact_so_line
   LEFT JOIN {{ ref('stg_fact_sales_order') }} AS fact_so_header
     ON fact_so_line.sales_order_key = fact_so_header.sales_order_key
     
