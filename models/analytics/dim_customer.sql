@@ -178,10 +178,10 @@ SELECT
   , COALESCE(dim_bill_to_customer.customer_name, 'Invalid') AS bill_to_customer_full_name
 
   , dim_customer.primary_contact_person_key
-  , COALESCE(dim_primary_contact_person.full_name, 'Invalid') AS primary_contact_person_full_name
+  , COALESCE(dim_primary_contact_person.full_name, 'Invalid') AS primary_contact_full_name
 
   , dim_customer.alternate_contact_person_key
-  , COALESCE(dim_alternate_contact_person.full_name, 'Invalid') AS alternate_contact_person_full_name
+  , COALESCE(dim_alternate_contact_person.full_name, 'Invalid') AS alternate_contact_full_name
 
   -- DELIVERY METHOD
   , dim_customer.delivery_method_key
