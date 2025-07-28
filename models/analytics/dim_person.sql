@@ -19,6 +19,9 @@ WITH
     SELECT
       CAST(person_key AS INTEGER) AS person_key
       , CAST(full_name AS STRING) AS full_name
+      , CAST(preferred_name AS STRING) AS preferred_name
+      , CAST(is_employee AS BOOLEAN) AS is_employee_boolean
+      , CAST(is_salesperson AS BOOLEAN) AS is_salesperson_boolean
     FROM dim_person__rename_column
 )
 
@@ -39,7 +42,8 @@ WITH
       , 'Invalid' AS full_name
 )
 
-SELECT * FROM dim_person__rename_column
+-- TESTING
+SELECT * FROM dim_person__cast_type
 
 /*
 SELECT
