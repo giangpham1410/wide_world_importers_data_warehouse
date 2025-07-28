@@ -38,8 +38,8 @@ WITH
     SELECT
       *
       , unit_price * quantity_sold AS gross_amount
-      , unit_price * quantity_sold * tax_rate AS tax_amount -- gross_amount * tax_rate
-      , (unit_price * quantity_sold) - (unit_price * quantity_sold * tax_rate) AS net_amount -- gross_amount - tax_amount
+      , unit_price * quantity_sold * tax_rate/100 AS tax_amount -- gross_amount * tax_rate
+      , (unit_price * quantity_sold) - (unit_price * quantity_sold * tax_rate/100) AS net_amount -- gross_amount - tax_amount
     FROM fact_sales_order_line__cast_type
 )
 
