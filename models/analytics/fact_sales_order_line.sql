@@ -26,26 +26,43 @@ WITH
       , CAST(product_key AS INTEGER) AS product_key
       , CAST(quantity_sold AS INTEGER) AS quantity_sold
       , CAST(unit_price AS NUMERIC) AS unit_price
+      , CAST(description AS STRING) AS description
+      , CAST(so_line_picking_completed_at AS DATETIME) AS so_line_picking_completed_at
+      , CAST(package_type_key AS INTEGER) AS package_type_key
+      , CAST(tax_rate AS NUMERIC) AS tax_rate
+      , CAST(picked_quantity AS INTEGER) AS picked_quantity
     FROM fact_sales_order_line__rename_column
 )
 
-SELECT *
-FROM fact_sales_order_line__rename_column
-
-/*
-SELECT 
+SELECT
   fact_so_line.sales_order_line_key
+  , fact_so_line.description
+  , fact_so_header.is_undersupply_backordered
+  , fact_so_header.customer_purchase_order_number
   , fact_so_header.order_date
-
+  , fact_so_header.expected_delivery_date
+  , fact_so_header.so_picking_completed_at
+  , fact_so_line.so_line_picking_completed_at
+  
+  -- FOREIGN KEY
   , fact_so_line.sales_order_key
-  , COALESCE(fact_so_header.customer_key, -1) AS customer_key
   , fact_so_line.product_key
+  , fact_so_line.package_type_key
+  , COALESCE(fact_so_header.customer_key, -1) AS customer_key
+  , COALESCE(fact_so_header.salesperson_person_key, -1) AS salesperson_person_key
   , COALESCE(fact_so_header.picked_by_person_key, -1) AS picked_by_person_key
-
-  , fact_so_line.quantity
+  , COALESCE(fact_so_header.contact_person_key, -1) AS contact_person_key
+  , COALESCE(fact_so_header.backorder_order_key, -1) AS backorder_order_key
+  
+  -- FACT
   , fact_so_line.unit_price
-  , fact_so_line.quantity * fact_so_line.unit_price AS gross_amount
-FROM fact_sales_order_line__cast_type fact_so_line
-  LEFT JOIN {{ ref('stg_fact_sales_order') }} fact_so_header
+  , fact_so_line.quantity_sold
+  , fact_so_line.tax_rate
+  , fact_so_line.picked_quantity
+
+  -- CALCULATED MEASURE
+  , fact_so_line.unit_price * fact_so_line.quantity_sold AS gross_amount
+FROM fact_sales_order_line__cast_type AS fact_so_line
+  LEFT JOIN {{ ref('stg_fact_sales_order') }} AS fact_so_header
     ON fact_so_line.sales_order_key = fact_so_header.sales_order_key
-*/
+    
