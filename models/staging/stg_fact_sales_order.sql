@@ -50,10 +50,31 @@ WITH
 
 , fact_sales_order__handle_null AS (
     SELECT
-      *
+      sales_order_key
+      , is_undersupply_backordered
+      , COALESCE(customer_purchase_order_number, 'Undefined') AS customer_purchase_order_number
+      , order_date
+      , expected_delivery_date
+      , so_picking_completed_at
+      , customer_key
+      , COALESCE(picked_by_person_key, 0) AS picked_by_person_key
+      , COALESCE(contact_person_key, 0) AS contact_person_key
+      , COALESCE(salesperson_person_key, 0) AS salesperson_person_key
+      , COALESCE(backorder_order_key, 0) AS backorder_order_key
     FROM fact_sales_order__convert_boolean
 )
 
 
-SELECT *
-FROM fact_sales_order__convert_boolean
+SELECT
+  sales_order_key
+  , is_undersupply_backordered
+  , customer_purchase_order_number
+  , order_date
+  , expected_delivery_date
+  , so_picking_completed_at
+  , customer_key
+  , picked_by_person_key
+  , contact_person_key
+  , salesperson_person_key
+  , backorder_order_key
+FROM fact_sales_order__handle_null
