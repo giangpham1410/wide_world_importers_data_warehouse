@@ -56,7 +56,13 @@ WITH
           WHEN is_on_credit_hold_boolean IS FALSE THEN 'Not On Credit Hold'
           WHEN is_on_credit_hold_boolean IS NULL THEN 'Undefined'
           ELSE 'Invalid'
-        END AS is_on_credit_hold
+          END AS is_on_credit_hold
+      , CASE
+          WHEN is_statement_sent_boolean IS TRUE THEN 'Statement Sent'
+          WHEN is_statement_sent_boolean IS FALSE THEN 'Not Statement Sent'
+          WHEN is_statement_sent_boolean IS NULL THEN 'Undefined'
+          ELSE 'Invalid'
+          END AS is_statement_sent
     FROM dim_customer__cast_type
 )
 
@@ -96,7 +102,7 @@ WITH
       , 'Invalid' AS is_on_credit_hold
 )
 
-SELECT * FROM dim_customer__cast_type
+SELECT * FROM dim_customer__convert_boolean
 
 /*
 SELECT
