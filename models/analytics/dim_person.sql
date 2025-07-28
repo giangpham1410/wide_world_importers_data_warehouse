@@ -49,25 +49,33 @@ WITH
     SELECT
       person_key
       , full_name
-    FROM dim_person__cast_type
+      , preferred_name
+      , is_employee
+      , is_salesperson
+    FROM dim_person__convert_boolean
 
     UNION ALL
     SELECT
       0 AS person_key
       , 'Undefined' AS full_name
+      , 'Undefined' AS preferred_name
+      , 'Undefined' AS is_employee
+      , 'Undefined' AS is_salesperson
 
     UNION ALL
     SELECT
       -1 AS person_key
       , 'Invalid' AS full_name
+      , 'Invalid' AS preferred_name
+      , 'Invalid' AS is_employee
+      , 'Invalid' AS is_salesperson
 )
 
--- TESTING
-SELECT * FROM dim_person__convert_boolean
 
-/*
 SELECT
   person_key
   , full_name
+  , preferred_name
+  , is_employee
+  , is_salesperson
 FROM dim_person__add_undefined_record
-*/
