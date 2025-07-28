@@ -61,9 +61,19 @@ WITH
     SELECT
       product_key
       , product_name
-      , supplier_key
       , COALESCE(brand_name, 'Undefined') AS brand_name
+      , COALESCE(size, 'Undefined') AS size
       , is_chiller_stock
+      , unit_price
+      , recommended_retail_price
+      , lead_time_days
+      , quantity_per_outer
+      , tax_rate
+      , typical_weight_per_unit
+      , COALESCE(supplier_key, 0) AS supplier_key
+      , COALESCE(color_key, 0) AS color_key
+      , COALESCE(unit_package_type_key, 0) AS unit_package_type_key
+      , COALESCE(outer_package_type_key, 0) AS outer_package_type_key
     FROM dim_product__convert_boolean
 )
 
@@ -96,7 +106,7 @@ WITH
 )
 
 SELECT *
-FROM dim_product__cast_type
+FROM dim_product__handle_null
 
 /*
 SELECT
