@@ -63,7 +63,7 @@ WITH
       , product_name
       , COALESCE(brand_name, 'Undefined') AS brand_name
       , COALESCE(size, 'Undefined') AS size
-      , is_chiller_stock
+      , COALESCE(is_chiller_stock, 'Undefined') AS is_chiller_stock
       , unit_price
       , recommended_retail_price
       , lead_time_days
@@ -81,43 +81,93 @@ WITH
     SELECT
       product_key
       , product_name
-      , supplier_key
       , brand_name
+      , size
       , is_chiller_stock
+      , unit_price
+      , recommended_retail_price
+      , lead_time_days
+      , quantity_per_outer
+      , tax_rate
+      , typical_weight_per_unit
+      , supplier_key
+      , color_key
+      , unit_package_type_key
+      , outer_package_type_key
     FROM dim_product__handle_null
 
     UNION ALL
     SELECT
-        0 AS product_key
+      0 AS product_key
       , 'Undefined' AS product_name
-      , 0 AS supplier_key
       , 'Undefined' AS brand_name
+      , 'Undefined' AS size
       , 'Undefined' AS is_chiller_stock
+      , NULL AS unit_price
+      , NULL AS recommended_retail_price
+      , NULL AS lead_time_days
+      , NULL AS quantity_per_outer
+      , NULL AS tax_rate
+      , NULL AS typical_weight_per_unit
+      , 0 AS supplier_key
+      , 0 AS color_key
+      , 0 AS unit_package_type_key
+      , 0 AS outer_package_type_key
 
     UNION ALL
     SELECT
-        -1 AS product_key
+      -1 AS  product_key
       , 'Invalid' AS product_name
-      , -1 AS supplier_key
       , 'Invalid' AS brand_name
+      , 'Invalid' AS size
       , 'Invalid' AS is_chiller_stock
-    
-
+      , NULL AS unit_price
+      , NULL AS recommended_retail_price
+      , NULL AS lead_time_days
+      , NULL AS quantity_per_outer
+      , NULL AS tax_rate
+      , NULL AS typical_weight_per_unit
+      , -1 AS  supplier_key
+      , -1 AS  color_key
+      , -1 AS  unit_package_type_key
+      , -1 AS  outer_package_type_key
 )
 
-SELECT *
-FROM dim_product__handle_null
 
-/*
 SELECT
+  -- PRODUCT INFO
   dim_product.product_key
   , dim_product.product_name
   , dim_product.brand_name
+  , dim_product.size
   , dim_product.is_chiller_stock
+  , dim_product.unit_price
+  , dim_product.recommended_retail_price
+  , dim_product.lead_time_days
+  , dim_product.quantity_per_outer
+  , dim_product.tax_rate
+  , dim_product.typical_weight_per_unit
 
+  -- SUPPLIER
   , dim_product.supplier_key
-  , COALESCE(dim_supplier.supplier_name, 'Invalid') AS supplier_name
-FROM dim_product__add_undefined_record dim_product
-  LEFT JOIN {{ ref('dim_supplier') }} dim_supplier
+  , dim_supplier.supplier_name
+
+  -- COLOR
+  , dim_product.color_key
+  , dim_color.color_name
+
+  -- PACKAGE TYPE
+  , dim_product.unit_package_type_key
+  , dim_unit_package_type.package_type_name AS unit_package_type_name
+  , dim_product.outer_package_type_key
+  , dim_outer_package_type.package_type_name AS outer_package_type_name
+
+FROM dim_product__add_undefined_record AS dim_product
+  LEFT JOIN {{ ref('dim_supplier') }} AS dim_supplier
     ON dim_product.supplier_key = dim_supplier.supplier_key
-*/
+  LEFT JOIN {{ ref('stg_dim_color') }} AS dim_color
+    ON dim_product.color_key = dim_color.color_key
+  LEFT JOIN {{ ref('dim_package_type') }} AS dim_unit_package_type
+    ON dim_product.unit_package_type_key = dim_unit_package_type.package_type_key
+  LEFT JOIN {{ ref('dim_package_type') }} AS dim_outer_package_type
+    ON dim_product.outer_package_type_key = dim_outer_package_type.package_type_key
