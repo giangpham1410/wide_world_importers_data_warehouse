@@ -13,6 +13,8 @@ WITH
     , EXTRACT(YEAR FROM date) AS year_number
     , DATE_TRUNC(date, YEAR) AS year
     , EXTRACT(WEEK FROM date) AS year_week
+    , EXTRACT(QUARTER FROM date) AS quarter_num
+    , CONCAT('Q', EXTRACT(QUARTER FROM date)) AS quarter
     , DATE_TRUNC(date, MONTH) AS year_month
     --, EXTRACT(DAY FROM date) AS year_day
     --, EXTRACT(YEAR FROM date) AS fiscal_year
