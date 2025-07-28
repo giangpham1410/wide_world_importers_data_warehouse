@@ -1,0 +1,46 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table dim_customer {
+  customer_key int [pk]
+  customer_name text
+  is_statement_sent text
+  is_on_credit_hold text
+  phone_number text
+  credit_limit numeric
+  standard_discount_pct numeric
+  payment_days numeric
+  account_opened_date date
+}
+
+Table dim_product {
+  product_key int [pk]
+  product_name text
+  brand_name text
+  size text
+  is_chiller_stock text
+  unit_price numeric
+  recommended_retail_price numeric
+  lead_time_days int
+  quantity_per_outer int
+  tax_rate numeric
+  typical_weight_per_unit numeric
+  supplier_name text
+  color_name text
+}
+
+Table fact_sales_order_line {
+  sales_order_line_key int [pk]
+  description text
+  customer_key int [ref: > dim_customer.customer_key]
+  product_key int [ref: > dim_product.product_key]
+  order_date date
+  expected_delivery_date date
+  so_line_picking_completed_at datetime
+  salesperson_person_name text
+  package_type_name text
+  quantity_sold int
+  unit_price numeric
+  tax_rate numeric
+  picked_quantity int
+}
