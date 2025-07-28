@@ -175,7 +175,7 @@ SELECT
 
   -- CONTACT
   , dim_customer.bill_to_customer_key
-  , COALESCE(dim_bill_to_customer.full_name, 'Invalid') AS bill_to_customer_full_name
+  , COALESCE(dim_bill_to_customer.customer_name, 'Invalid') AS bill_to_customer_full_name
 
   , dim_customer.primary_contact_person_key
   , COALESCE(dim_primary_contact_person.full_name, 'Invalid') AS primary_contact_person_full_name
@@ -207,7 +207,7 @@ SELECT
   , dim_postal_geography.country_key AS postal_country_key
   , COALESCE(dim_postal_geography.country_name, 'Invalid') AS postal_country_name
 
-FROM dim_customer__add_undefined_record dim_customer
+FROM dim_customer__add_undefined_record AS dim_customer
   LEFT JOIN {{ ref('stg_dim_customer_category') }} AS dim_customer_category
     ON dim_customer.customer_category_key = dim_customer_category.customer_category_key
 
@@ -217,8 +217,8 @@ FROM dim_customer__add_undefined_record dim_customer
   LEFT JOIN {{ ref('dim_delivery_method') }} AS dim_delivery_method
     ON dim_customer.delivery_method_key = dim_delivery_method.delivery_method_key
 
-  LEFT JOIN {{ ref('dim_person') }} AS dim_bill_to_customer
-    ON dim_customer.bill_to_customer_key = dim_bill_to_customer.person_key
+  LEFT JOIN dim_customer__add_undefined_record AS dim_bill_to_customer
+    ON dim_customer.bill_to_customer_key = dim_bill_to_customer.customer_key
 
   LEFT JOIN {{ ref('dim_person') }} AS dim_primary_contact_person
     ON dim_customer.primary_contact_person_key = dim_primary_contact_person.person_key
