@@ -66,6 +66,7 @@ WITH
     FROM dim_customer__cast_type
 )
 
+-- Xử lý NULL ở những cột gốc không nhập dữ liệu
 , dim_customer__handle_null AS (
     SELECT
       customer_key
@@ -73,6 +74,18 @@ WITH
       , COALESCE(customer_category_key, 0) AS customer_category_key
       , COALESCE(buying_group_key, 0) AS buying_group_key
       , is_on_credit_hold
+      , is_statement_sent
+      , phone_number
+      , credit_limit
+      , standard_discount_pct
+      , payment_days
+      , account_opened_date
+      , bill_to_customer_key
+      , primary_contact_person_key
+      , COALESCE(alternate_contact_person_key, 0) AS alternate_contact_person_key
+      , COALESCE(delivery_method_key, 0) AS delivery_method_key
+      , COALESCE(delivery_city_key, 0) AS delivery_city_key
+      , COALESCE(postal_city_key, 0) AS postal_city_key
     FROM dim_customer__convert_boolean
 )
 
@@ -83,6 +96,18 @@ WITH
       , customer_category_key
       , buying_group_key
       , is_on_credit_hold
+      , is_statement_sent
+      , phone_number
+      , credit_limit
+      , standard_discount_pct
+      , payment_days
+      , account_opened_date
+      , bill_to_customer_key
+      , primary_contact_person_key
+      , alternate_contact_person_key
+      , delivery_method_key
+      , delivery_city_key
+      , postal_city_key
     FROM dim_customer__handle_null
 
     UNION ALL
@@ -92,6 +117,18 @@ WITH
       , 0 AS customer_category_key
       , 0 AS buying_group_key
       , 'Undefined' AS is_on_credit_hold
+      , 'Undefined' AS is_statement_sent
+      , 'Undefined' AS phone_number
+      , NULL AS credit_limit
+      , NULL AS standard_discount_pct
+      , NULL AS payment_days
+      , NULL AS account_opened_date
+      , 0 AS bill_to_customer_key
+      , 0 AS primary_contact_person_key
+      , 0 AS alternate_contact_person_key
+      , 0 AS delivery_method_key
+      , 0 AS delivery_city_key
+      , 0 AS postal_city_key
 
     UNION ALL
     SELECT
@@ -100,9 +137,21 @@ WITH
       , -1 AS customer_category_key
       , -1 AS buying_group_key
       , 'Invalid' AS is_on_credit_hold
+      , 'Invalid' AS is_statement_sent
+      , 'Invalid' AS phone_number
+      , NULL AS credit_limit
+      , NULL AS standard_discount_pct
+      , NULL AS payment_days
+      , NULL AS account_opened_date
+      , -1 AS bill_to_customer_key
+      , -1 AS primary_contact_person_key
+      , -1 AS alternate_contact_person_key
+      , -1 AS delivery_method_key
+      , -1 AS delivery_city_key
+      , -1 AS postal_city_key
 )
 
-SELECT * FROM dim_customer__convert_boolean
+SELECT * FROM dim_customer__add_undefined_record
 
 /*
 SELECT
