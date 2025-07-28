@@ -185,9 +185,26 @@ SELECT
   , dim_customer.delivery_method_key
   , dim_delivery_method.delivery_method_name
 
-  -- CITY
+  -- DELIVERY INFO
   , dim_customer.delivery_city_key
+  , dim_delivery_geography.city_name AS delivery_city_name
+  , dim_delivery_geography.state_province_key AS delivery_state_province_key
+  , dim_delivery_geography.state_province_name AS delivery_state_province_name
+  , dim_delivery_geography.state_province_code AS delivery_state_province_code
+  , dim_delivery_geography.sales_territory AS delivery_sales_territory
+  , dim_delivery_geography.country_key AS delivery_country_key
+  , dim_delivery_geography.country_name AS delivery_country_name
+
+  -- POSTAL INFO
   , dim_customer.postal_city_key
+  , dim_postal_geography.city_name AS postal_city_name
+  , dim_postal_geography.state_province_key AS postal_state_province_key
+  , dim_postal_geography.state_province_name AS postal_state_province_name
+  , dim_postal_geography.state_province_code AS postal_state_province_code
+  , dim_postal_geography.sales_territory AS postal_sales_territory
+  , dim_postal_geography.country_key AS postal_country_key
+  , dim_postal_geography.country_name AS postal_country_name
+
 FROM dim_customer__add_undefined_record dim_customer
   LEFT JOIN {{ ref('stg_dim_customer_category') }} AS dim_customer_category
     ON dim_customer.customer_category_key = dim_customer_category.customer_category_key
@@ -206,3 +223,9 @@ FROM dim_customer__add_undefined_record dim_customer
 
   LEFT JOIN {{ ref('dim_person') }} AS dim_alternate_contact_person
     ON dim_customer.alternate_contact_person_key = dim_alternate_contact_person.person_key
+
+  LEFT JOIN {{ ref('dim_geography') }} AS dim_delivery_geography
+    ON dim_customer.delivery_city_key = dim_delivery_geography.city_key
+  
+  LEFT JOIN {{ ref('dim_geography') }} AS dim_postal_geography
+    ON dim_customer.postal_city_key = dim_postal_geography.city_key
