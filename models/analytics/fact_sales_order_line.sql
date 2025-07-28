@@ -48,6 +48,8 @@ SELECT
   , fact_so_line.sales_order_key
   , fact_so_line.product_key
   , fact_so_line.package_type_key
+
+  -- Handle NULL khi fact_so_line load full du lieu nhung fact_so_header load thieu du lieu
   , COALESCE(fact_so_header.customer_key, -1) AS customer_key
   , COALESCE(fact_so_header.salesperson_person_key, -1) AS salesperson_person_key
   , COALESCE(fact_so_header.picked_by_person_key, -1) AS picked_by_person_key
