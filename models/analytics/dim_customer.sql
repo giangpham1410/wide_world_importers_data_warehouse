@@ -33,6 +33,18 @@ WITH
       , CAST(buying_group_key AS INTEGER) AS buying_group_key
       , CAST(customer_name AS STRING) customer_name
       , CAST(is_on_credit_hold_boolean AS BOOLEAN) AS is_on_credit_hold_boolean
+      , CAST(is_statement_sent_boolean AS BOOLEAN) AS is_statement_sent_boolean
+      , CAST(phone_number AS STRING) AS phone_number
+      , CAST(credit_limit AS NUMERIC) AS credit_limit
+      , CAST(standard_discount_pct AS NUMERIC) AS standard_discount_pct
+      , CAST(payment_days AS INTEGER) AS payment_days
+      , CAST(account_opened_date AS DATE) AS account_opened_date
+      , CAST(bill_to_customer_key AS INTEGER) AS bill_to_customer_key
+      , CAST(primary_contact_person_key AS INTEGER) AS primary_contact_person_key
+      , CAST(alternate_contact_person_key AS INTEGER) AS alternate_contact_person_key
+      , CAST(delivery_method_key AS INTEGER) AS delivery_method_key
+      , CAST(delivery_city_key AS INTEGER) AS delivery_city_key
+      , CAST(postal_city_key AS INTEGER) AS postal_city_key
     FROM dim_customer__rename_column
 )
 
@@ -84,7 +96,7 @@ WITH
       , 'Invalid' AS is_on_credit_hold
 )
 
-SELECT * FROM dim_customer__rename_column
+SELECT * FROM dim_customer__cast_type
 
 /*
 SELECT
