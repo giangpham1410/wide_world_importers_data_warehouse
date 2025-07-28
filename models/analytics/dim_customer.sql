@@ -168,7 +168,8 @@ SELECT
   , dim_customer_category.customer_category_name
   
   -- BUYING GROUP
-  , buying_group_key
+  , dim_customer.buying_group_key
+  , dim_buying_group.buying_group_name
 
   -- CONTACT
   , dim_customer.bill_to_customer_key
@@ -177,6 +178,7 @@ SELECT
 
   -- DELIVERY METHOD
   , dim_customer.delivery_method_key
+  , dim_delivery_method.delivery_method_name
 
   -- CITY
   , dim_customer.delivery_city_key
@@ -184,6 +186,10 @@ SELECT
 FROM dim_customer__add_undefined_record dim_customer
   LEFT JOIN {{ ref('stg_dim_customer_category') }} AS dim_customer_category
     ON dim_customer.customer_category_key = dim_customer_category.customer_category_key
+  LEFT JOIN {{ ref('stg_dim_buying_group') }} AS dim_buying_group
+    ON dim_customer.buying_group_key = dim_buying_group.buying_group_key
+  LEFT JOIN {{ ref('dim_delivery_method') }} AS dim_delivery_method
+    ON dim_customer.delivery_method_key = dim_delivery_method.delivery_method_key
 
 /*
 SELECT
