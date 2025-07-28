@@ -11,6 +11,18 @@ WITH
       , buying_group_id AS buying_group_key
       , customer_name
       , is_on_credit_hold AS is_on_credit_hold_boolean
+      , is_statement_sent AS is_statement_sent_boolean
+      , phone_number
+      , credit_limit
+      , standard_discount_percentage AS standard_discount_pct
+      , payment_days
+      , account_opened_date
+      , bill_to_customer_id AS bill_to_customer_key
+      , primary_contact_person_id AS primary_contact_person_key
+      , alternate_contact_person_id AS alternate_contact_person_key
+      , delivery_method_id AS delivery_method_key
+      , delivery_city_id AS delivery_city_key
+      , postal_city_id AS postal_city_key
     FROM dim_customer__source
 )
 
@@ -72,7 +84,9 @@ WITH
       , 'Invalid' AS is_on_credit_hold
 )
 
+SELECT * FROM dim_customer__rename_column
 
+/*
 SELECT
   dim_customer.customer_key
   , dim_customer.customer_name
@@ -87,3 +101,4 @@ FROM dim_customer__add_undefined_record dim_customer
     ON dim_customer.customer_category_key = dim_customer_category.customer_category_key
   LEFT JOIN {{ ref('stg_dim_buying_group') }} dim_buying_group
     ON dim_customer.buying_group_key = dim_buying_group.buying_group_key
+*/
