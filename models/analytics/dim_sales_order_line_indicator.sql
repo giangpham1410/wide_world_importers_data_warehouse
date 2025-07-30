@@ -10,11 +10,12 @@ WITH
       , 'Not Undersupply Backordered' AS is_undersupply_backordered
 )
 SELECT
-  CONCAT(
-    dim_is_undersupply_backordered.is_undersupply_backordered_key
-    , ','
-    , dim_package_type.package_type_key)
-    AS sales_order_line_indicator_key
+  FARM_FINGERPRINT(
+    CONCAT(
+      dim_is_undersupply_backordered.is_undersupply_backordered_key
+      , ','
+      , dim_package_type.package_type_key)
+  ) AS sales_order_line_indicator_key
   , dim_is_undersupply_backordered.is_undersupply_backordered_key
   , dim_is_undersupply_backordered.is_undersupply_backordered
   , dim_package_type.package_type_key
