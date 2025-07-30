@@ -66,11 +66,13 @@ SELECT
   , COALESCE(fact_so_header.backorder_order_key, -1) AS backorder_order_key
 
   -- COMPOSITE KEY
-  , CONCAT(
-      fact_so_header.is_undersupply_backordered_boolean
-      , ','
-      , fact_so_line.package_type_key
-      ) AS sales_order_line_indicator_key
+  , FARM_FINGERPRINT(
+      CONCAT(
+          fact_so_header.is_undersupply_backordered_boolean
+          , ','
+          , fact_so_line.package_type_key
+          )
+    ) AS sales_order_line_indicator_key
   
   -- FACT
   , fact_so_line.unit_price
