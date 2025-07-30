@@ -64,6 +64,13 @@ SELECT
   , COALESCE(fact_so_header.picked_by_person_key, -1) AS picked_by_person_key
   , COALESCE(fact_so_header.contact_person_key, -1) AS contact_person_key
   , COALESCE(fact_so_header.backorder_order_key, -1) AS backorder_order_key
+
+  -- COMPOSITE KEY
+  , CONCAT(
+      fact_so_header.is_undersupply_backordered
+      , ','
+      , fact_so_line.package_type_key
+      ) AS sales_order_line_indicator_key
   
   -- FACT
   , fact_so_line.unit_price
