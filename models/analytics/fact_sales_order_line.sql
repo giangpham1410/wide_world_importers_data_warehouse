@@ -46,7 +46,7 @@ WITH
 SELECT
   fact_so_line.sales_order_line_key
   , fact_so_line.description
-  , COALESCE(fact_so_header.is_undersupply_backordered, 'Undefined') AS is_undersupply_backordered
+  --, COALESCE(fact_so_header.is_undersupply_backordered, 'Undefined') AS is_undersupply_backordered
   , fact_so_header.customer_purchase_order_number
   , fact_so_header.order_date
   , fact_so_header.expected_delivery_date
@@ -56,7 +56,7 @@ SELECT
   -- FOREIGN KEY
   , fact_so_line.sales_order_key
   , fact_so_line.product_key
-  , fact_so_line.package_type_key
+  --, fact_so_line.package_type_key
 
   -- Handle NULL khi fact_so_line load full du lieu nhung fact_so_header load thieu du lieu
   , COALESCE(fact_so_header.customer_key, -1) AS customer_key
@@ -67,7 +67,7 @@ SELECT
 
   -- COMPOSITE KEY
   , CONCAT(
-      COALESCE(fact_so_header.is_undersupply_backordered, 'Undefined')
+      fact_so_header.is_undersupply_backordered_boolean
       , ','
       , fact_so_line.package_type_key
       ) AS sales_order_line_indicator_key
