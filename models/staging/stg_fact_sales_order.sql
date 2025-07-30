@@ -51,7 +51,7 @@ WITH
 , fact_sales_order__handle_null AS (
     SELECT
       sales_order_key
-      , is_undersupply_backordered
+      , is_undersupply_backordered_boolean
       , COALESCE(customer_purchase_order_number, 'Undefined') AS customer_purchase_order_number
       , order_date
       , expected_delivery_date
@@ -67,7 +67,7 @@ WITH
 
 SELECT
   sales_order_key
-  , is_undersupply_backordered
+  , is_undersupply_backordered_boolean
   , customer_purchase_order_number
   , order_date
   , expected_delivery_date
