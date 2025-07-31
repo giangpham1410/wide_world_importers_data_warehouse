@@ -8,7 +8,7 @@ WITH
 
 , dim_date__enrich AS (
   SELECT
-    FORMAT_DATE('%Y%m%d', date) as date_key
+    CAST(FORMAT_DATE('%Y%m%d', date) AS INTEGER) as date_key
     , date
     , EXTRACT(YEAR FROM date) AS year_number
     , DATE_TRUNC(date, YEAR) AS year
