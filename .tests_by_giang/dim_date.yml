@@ -3,100 +3,62 @@ version: 2
 models:
   - name: dim_date
     columns:
+      - name: date_key
+        data_tests:
+          - not_null
+
       - name: date
-        tests:
-          - dbt_expectations.expect_column_to_exist:
-              config:
-                tags: lesson-0111b
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: DATE
-              config:
-                tags: lesson-0111b
-          - not_null:
-              config:
-                tags: lesson-0111b
+        data_tests:
+          - not_null
 
-      - name: day_of_week
-        tests:
-          - dbt_expectations.expect_column_to_exist:
-              config:
-                tags: lesson-0111b
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: STRING
-              config:
-                tags: lesson-0111b
-          - not_null:
-              config:
-                tags: lesson-0111b
-
-      - name: day_of_week_short
-        tests:
-          - dbt_expectations.expect_column_to_exist:
-              config:
-                tags: lesson-0111b
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: STRING
-              config:
-                tags: lesson-0111b
-          - not_null:
-              config:
-                tags: lesson-0111b
-
-      - name: is_weekday_or_weekend
-        tests:
-          - dbt_expectations.expect_column_to_exist:
-              config:
-                tags: lesson-0111b
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: STRING
-              config:
-                tags: lesson-0111b
-          - not_null:
-              config:
-                tags: lesson-0111b
-
-      - name: year_month
-        tests:
-          - dbt_expectations.expect_column_to_exist:
-              config:
-                tags: lesson-0111b
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: DATE
-              config:
-                tags: lesson-0111b
-          - not_null:
-              config:
-                tags: lesson-0111b
-
-      - name: month
-        tests:
-          - dbt_expectations.expect_column_to_exist
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: STRING
+      - name: year_number
+        data_tests:
           - not_null
 
       - name: year
-        tests:
-          - dbt_expectations.expect_column_to_exist:
-              config:
-                tags: lesson-0111b
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: DATE
-              config:
-                tags: lesson-0111b
-          - not_null:
-              config:
-                tags: lesson-0111b
+        data_tests:
+          - not_null
 
-      - name: year_number
-        tests:
-          - dbt_expectations.expect_column_to_exist:
-              config:
-                tags: lesson-0111b
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: INT64
-              config:
-                tags: lesson-0111b
-          - not_null:
-              config:
-                tags: lesson-0111b
+      - name: year_week
+        data_tests:
+          - not_null
+
+      - name: quarter_num
+        data_tests:
+          - not_null
+
+      - name: quarter
+        data_tests:
+          - not_null
+
+      - name: year_month
+        data_tests:
+          - not_null
+      
+      - name: month_num
+        data_tests:
+          - not_null
+      
+      - name: month
+        data_tests:
+          - not_null
+      
+      - name: month_name_short
+        data_tests:
+          - not_null
+      
+      - name: week_day
+        data_tests:
+          - not_null
+      
+      - name: day_of_week
+        data_tests:
+          - not_null
+      
+      - name: day_of_week_short
+        data_tests:
+          - not_null
+      
+      - name: is_weekday_or_weekend
+        data_tests:
+          - not_null
