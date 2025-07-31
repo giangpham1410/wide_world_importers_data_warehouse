@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: dim_delivery_method
+    columns:
+      - name: delivery_method_key
+        data_tests:
+          - not_null
+      
+      - name: delivery_method_name
+        data_tests:
+          - not_null
