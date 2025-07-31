@@ -30,3 +30,63 @@ models:
       # - name: so_line_picking_completed_at
       #   data_tests:
       #     - not_null
+
+      - name: sales_order_key
+        data_tests:
+          - not_null
+
+      - name: product_key
+        data_tests:
+          - not_null
+
+      - name: customer_key
+        data_tests:
+          - not_null
+
+      - name: salesperson_person_key
+        data_tests:
+          - not_null
+
+      - name: picked_by_person_key
+        data_tests:
+          - not_null
+
+      - name: contact_person_key
+        data_tests:
+          - not_null
+
+      - name: backorder_order_key
+        data_tests:
+          - not_null
+
+      - name: sales_order_line_indicator_key
+        data_tests:
+          - not_null
+
+      - name: unit_price
+        data_tests:
+          - not_null
+
+      - name: quantity_sold
+        data_tests:
+          - not_null
+
+      - name: tax_rate
+        data_tests:
+          - not_null
+
+      - name: picked_quantity
+        data_tests:
+          - not_null
+
+      - name: gross_amount
+        data_tests:
+          - not_null
+
+      - name: tax_amount
+        data_tests:
+          - not_null
+
+      - name: net_amount
+        data_tests:
+          - not_null
