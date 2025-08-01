@@ -5,6 +5,7 @@ models:
     columns:
       - name: date_key
         data_tests:
+          - unique
           - not_null
 
       - name: date
