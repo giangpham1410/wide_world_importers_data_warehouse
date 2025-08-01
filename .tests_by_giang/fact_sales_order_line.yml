@@ -19,6 +19,9 @@ models:
       - name: order_date
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: "'2013-01-01'"
+              max_value: 'CURRENT_DATE'
 
       - name: expected_delivery_date
         data_tests:
