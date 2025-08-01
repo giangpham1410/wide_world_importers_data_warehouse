@@ -15,10 +15,18 @@ models:
       - name: is_on_credit_hold
         data_tests:
           - not_null
+          - accepted_values:
+              values: ['On Credit Hold', 'Not On Credit Hold']
+              config:
+                where: "customer_key NOT IN (0, -1)" # Remove customer Undefined, Invalid
       
       - name: is_statement_sent
         data_tests:
           - not_null
+          - accepted_values:
+              values: ['Statement Sent', 'Statement Not Sent']
+              config:
+                where: "customer_key NOT IN (0, -1)" # Remove customer Undefined, Invalid
       
       - name: phone_number
         data_tests:
