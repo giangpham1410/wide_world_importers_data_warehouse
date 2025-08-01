@@ -5,6 +5,7 @@ models:
     columns:
       - name: supplier_key
         data_tests:
+          - unique
           - not_null
       
       - name: supplier_name
