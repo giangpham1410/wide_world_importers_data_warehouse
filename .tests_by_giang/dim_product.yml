@@ -82,3 +82,33 @@ models:
       - name: outer_package_type_name
         data_tests:
           - not_null
+      
+      - name: unit_price
+        data_tests:
+          - not_null:
+              where: "product_key NOT IN (0, -1)"
+      
+      - name: recommended_retail_price
+        data_tests:
+          - not_null:
+              where: "product_key NOT IN (0, -1)"
+      
+      - name: lead_time_days
+        data_tests:
+          - not_null:
+              where: "product_key NOT IN (0, -1)"
+      
+      - name: quantity_per_outer
+        data_tests:
+          - not_null:
+              where: "product_key NOT IN (0, -1)"
+      
+      - name: tax_rate
+        data_tests:
+          - not_null:
+              where: "product_key NOT IN (0, -1)"
+      
+      - name: typical_weight_per_unit
+        data_tests:
+          - not_null:
+              where: "product_key NOT IN (0, -1)"
