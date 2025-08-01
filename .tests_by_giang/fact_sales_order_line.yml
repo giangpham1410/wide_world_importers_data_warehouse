@@ -34,26 +34,44 @@ models:
       - name: sales_order_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('stg_fact_sales_order')
+              field: sales_order_key
 
       - name: product_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_key
 
       - name: customer_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_key
 
       - name: salesperson_person_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_salesperson_person')
+              field: salesperson_person_key
 
       - name: picked_by_person_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_picked_by_person')
+              field: picked_by_person_key
 
       - name: contact_person_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_contact_person')
+              field: contact_person_key
 
       - name: backorder_order_key
         data_tests:
