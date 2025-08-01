@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_dim_state_province
+    columns:
+      - name: state_province_key
+        data_tests:
+          - not_null
+
+      - name: state_province_name
+        data_tests:
+          - not_null
+          
+      - name: state_province_code
+        data_tests:
+          - not_null
+          
+      - name: sales_territory
+        data_tests:
+          - not_null
+          
+      - name: country_key
+        data_tests:
+          - not_null
+          
+      - name: country_name
+        data_tests:
+          - not_null
+          
+      - name: country_code
+        data_tests:
+          - not_null
+          
+      - name: region
+        data_tests:
+          - not_null
