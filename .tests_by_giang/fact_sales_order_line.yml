@@ -121,15 +121,21 @@ models:
           - not_null
           - dbt_utils.accepted_range:
               min_value: 0
+          - dbt_utils.expression_is_true:
+              expression: "= unit_price * quantity_sold"
 
       - name: tax_amount
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
               min_value: 0
+          - dbt_utils.expression_is_true:
+              expression: "= gross_amount * tax_rate / 100"
 
       - name: net_amount
         data_tests:
           - not_null
           - dbt_utils.accepted_range:
               min_value: 0
+          - dbt_utils.expression_is_true:
+              expression: "= gross_amount - tax_amount"
