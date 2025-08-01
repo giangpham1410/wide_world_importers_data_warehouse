@@ -23,6 +23,10 @@ models:
       - name: is_chiller_stock
         data_tests:
           - not_null
+          - accepted_values:
+              values: ['Chiller Stock', 'Not Chiller Stock']
+              config:
+                where: "product_key NOT IN (0, -1)"
       
       - name: supplier_key
         data_tests:
