@@ -15,8 +15,9 @@ models:
       - name: payment_days
         data_tests:
           - not_null:
-              config:
                 where: "supplier_key NOT IN (0, -1)"  # remove supplier undefined, invalid
+          - dbt_utils.accepted_range:
+              min_value: 0
               
       - name: supplier_category_key
         data_tests:
