@@ -5,6 +5,7 @@ models:
     columns:
       - name: picked_by_person_key
         data_tests:
+          - unique
           - not_null
       
       - name: picked_by_full_name
