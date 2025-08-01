@@ -12,9 +12,12 @@ models:
         data_tests:
           - not_null
       
-      # - name: payment_days
-      #   data_tests:
-      #     - not_null
+      - name: payment_days
+        data_tests:
+          - not_null:
+              config:
+                where: "supplier_key NOT IN (0, -1)"
+              
       
       - name: supplier_category_key
         data_tests:
