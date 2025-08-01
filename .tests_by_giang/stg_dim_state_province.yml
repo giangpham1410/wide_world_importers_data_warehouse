@@ -23,6 +23,9 @@ models:
       - name: country_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('stg_dim_country')
+              field: country_key
           
       - name: country_name
         data_tests:
