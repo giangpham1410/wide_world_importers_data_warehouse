@@ -26,6 +26,9 @@ models:
       - name: expected_delivery_date
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: "'2013-01-01'"
+              max_value: 'CURRENT_DATE'
 
       # - name: so_picking_completed_at
       #   data_tests:
@@ -94,10 +97,14 @@ models:
       - name: unit_price
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
 
       - name: quantity_sold
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
 
       - name: tax_rate
         data_tests:
@@ -106,15 +113,23 @@ models:
       - name: picked_quantity
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
 
       - name: gross_amount
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
 
       - name: tax_amount
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
 
       - name: net_amount
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
