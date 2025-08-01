@@ -28,19 +28,19 @@ models:
         data_tests:
           - not_null:
               config:
-                where: "customer_key NOT IN (0, -1)"
+                where: "customer_key NOT IN (0, -1)" # remove customer undefined, invalid
       
       - name: standard_discount_pct
         data_tests:
           - not_null:
               config:
-                where: "customer_key NOT IN (0, -1)"
+                where: "customer_key NOT IN (0, -1)" # remove customer undefined, invalid
 
       - name: payment_days
         data_tests:
           - not_null:
               config:
-                where: "customer_key NOT IN (0, -1)"
+                where: "customer_key NOT IN (0, -1)" # remove customer undefined, invalid
 
       - name: customer_category_key
         data_tests:
