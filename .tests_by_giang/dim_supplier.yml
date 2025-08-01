@@ -19,6 +19,9 @@ models:
       - name: supplier_category_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_supplier_category')
+              field: supplier_category_key
       
       - name: supplier_category_name
         data_tests:
@@ -27,6 +30,9 @@ models:
       - name: delivery_method_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_delivery_method')
+              field: delivery_method_key
       
       - name: delivery_method_name
         data_tests:
@@ -35,6 +41,9 @@ models:
       - name: delivery_city_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_geography')
+              field: city_key
       
       - name: delivery_city_name
         data_tests:
@@ -47,6 +56,9 @@ models:
       - name: primary_contact_person_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_person')
+              field: person_key
       
       - name: primary_contact_name
         data_tests:
