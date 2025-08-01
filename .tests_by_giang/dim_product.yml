@@ -27,6 +27,9 @@ models:
       - name: supplier_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_supplier')
+              field: supplier_key
       
       - name: supplier_name
         data_tests:
@@ -35,6 +38,9 @@ models:
       - name: supplier_category_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('stg_dim_supplier_category')
+              field: supplier_category_key
       
       - name: supplier_category_name
         data_tests:
@@ -43,6 +49,9 @@ models:
       - name: color_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('stg_dim_color')
+              field: color_key
       
       - name: color_name
         data_tests:
@@ -51,6 +60,9 @@ models:
       - name: unit_package_type_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_package_type')
+              field: package_type_key
       
       - name: unit_package_type_name
         data_tests:
@@ -59,6 +71,9 @@ models:
       - name: outer_package_type_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_package_type')
+              field: package_type_key
       
       - name: outer_package_type_name
         data_tests:
