@@ -24,9 +24,23 @@ models:
         data_tests:
           - not_null
       
-      # - name: account_opened_date
-      #   data_tests:
-      #     - not_null
+      - name: account_opened_date
+        data_tests:
+          - not_null:
+              config:
+                where: "customer_key NOT IN (0, -1)"
+      
+      - name: standard_discount_pct
+        data_tests:
+          - not_null:
+              config:
+                where: "customer_key NOT IN (0, -1)"
+
+      - name: payment_days
+        data_tests:
+          - not_null:
+              config:
+                where: "customer_key NOT IN (0, -1)"
 
       - name: customer_category_key
         data_tests:
