@@ -76,10 +76,16 @@ models:
       - name: backorder_order_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('stg_fact_sales_order')
+              field: backorder_order_key
 
       - name: sales_order_line_indicator_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_sales_order_line_indicator')
+              field: sales_order_line_indicator_key
 
       - name: unit_price
         data_tests:
