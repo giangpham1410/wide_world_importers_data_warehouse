@@ -16,9 +16,8 @@ models:
         data_tests:
           - not_null:
               config:
-                where: "supplier_key NOT IN (0, -1)"
+                where: "supplier_key NOT IN (0, -1)"  # remove supplier undefined, invalid
               
-      
       - name: supplier_category_key
         data_tests:
           - not_null
