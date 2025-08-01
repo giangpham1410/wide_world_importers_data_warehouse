@@ -15,6 +15,9 @@ models:
       - name: state_province_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('stg_dim_state_province')
+              field: state_province_key
 
       - name: state_province_name
         data_tests:
@@ -32,6 +35,9 @@ models:
       - name: country_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('stg_dim_state_province')
+              field: country_key
 
       - name: country_name
         data_tests:
