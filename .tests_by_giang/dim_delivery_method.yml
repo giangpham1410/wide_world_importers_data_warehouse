@@ -5,6 +5,7 @@ models:
     columns:
       - name: delivery_method_key
         data_tests:
+          - unique
           - not_null
       
       - name: delivery_method_name
