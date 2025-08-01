@@ -19,6 +19,9 @@ models:
       - name: package_type_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_package_type')
+              field: package_type_key
       
       - name: package_type_name
         data_tests:
