@@ -60,7 +60,7 @@ WITH
       , COALESCE(picked_by_person_key, 0) AS picked_by_person_key
       , COALESCE(contact_person_key, 0) AS contact_person_key
       , COALESCE(salesperson_person_key, 0) AS salesperson_person_key
-      , COALESCE(backorder_order_key, 0) AS backorder_order_key
+      , backorder_order_key AS backorder_order_key
     FROM fact_sales_order__convert_boolean
 )
 
