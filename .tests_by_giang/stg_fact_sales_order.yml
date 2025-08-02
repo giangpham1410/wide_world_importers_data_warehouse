@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: stg_fact_sales_order
+    columns:
+      - name: sales_order_key
+        data_tests:
+          - not_null
+      
+      - name: is_undersupply_backordered_boolean
+        data_tests:
+          - not_null
+      
+      - name: customer_purchase_order_number
+        data_tests:
+          - not_null
+      
+      - name: order_date
+        data_tests:
+          - not_null
+      
+      - name: expected_delivery_date
+        data_tests:
+          - not_null
+      
+      # - name: so_picking_completed_at
+      #   data_tests:
+      #     - not_null
+      
+      - name: customer_key
+        data_tests:
+          - not_null
+      
+      - name: picked_by_person_key
+        data_tests:
+          - not_null
+      
+      - name: contact_person_key
+        data_tests:
+          - not_null
+      
+      - name: salesperson_person_key
+        data_tests:
+          - not_null
+      
+      - name: backorder_order_key
+        data_tests:
+          - not_null
