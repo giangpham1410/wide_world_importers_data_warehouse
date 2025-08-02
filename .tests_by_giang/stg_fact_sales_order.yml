@@ -22,10 +22,14 @@ models:
       - name: order_date
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: "'2013-01-01'"
       
       - name: expected_delivery_date
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: "'2013-01-01'"
       
       # - name: so_picking_completed_at
       #   data_tests:
