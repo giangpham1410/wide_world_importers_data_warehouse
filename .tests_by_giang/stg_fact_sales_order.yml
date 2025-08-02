@@ -2,6 +2,11 @@ version: 2
 
 models:
   - name: stg_fact_sales_order
+
+    tests:
+        - dbt_utils.equal_rowcount:
+            compare_model: "`vit-lam-data.wide_world_importers.sales__orders`"
+            
     columns:
       - name: sales_order_key
         data_tests:
