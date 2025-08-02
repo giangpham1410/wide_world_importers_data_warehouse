@@ -62,3 +62,9 @@ models:
           - relationships:
               to: ref('dim_salesperson_person')
               field: salesperson_person_key
+      
+      - name: backorder_order_key
+        data_tests:
+          - relationships:
+              to: ref('stg_fact_sales_order')
+              field: sales_order_key
