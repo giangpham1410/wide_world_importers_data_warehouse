@@ -109,6 +109,9 @@ models:
           - not_null
           - dbt_utils.accepted_range:
               min_value: 0
+          - custom_test_equal_sum:
+              compare_model: "`vit-lam-data.wide_world_importers.sales__order_lines`"
+              compare_column: "quantity"
 
       - name: tax_rate
         data_tests:
@@ -119,6 +122,9 @@ models:
           - not_null
           - dbt_utils.accepted_range:
               min_value: 0
+          - custom_test_equal_sum:
+              compare_model: "`vit-lam-data.wide_world_importers.sales__order_lines`"
+              compare_column: "picked_quantity"
 
       - name: gross_amount
         data_tests:
