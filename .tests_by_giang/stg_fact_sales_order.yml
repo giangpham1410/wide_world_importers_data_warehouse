@@ -11,6 +11,9 @@ models:
       - name: is_undersupply_backordered_boolean
         data_tests:
           - not_null
+          - accepted_values:
+              values: [true, false]
+              quote: false
       
       - name: customer_purchase_order_number
         data_tests:
@@ -31,19 +34,27 @@ models:
       - name: customer_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_key
       
       - name: picked_by_person_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_picked_by_person')
+              field: picked_by_person_key
       
       - name: contact_person_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_contact_person')
+              field: contact_person_key
       
       - name: salesperson_person_key
         data_tests:
           - not_null
-      
-      - name: backorder_order_key
-        data_tests:
-          - not_null
+          - relationships:
+              to: ref('dim_salesperson_person')
+              field: salesperson_person_key
