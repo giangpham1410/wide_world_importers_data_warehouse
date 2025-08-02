@@ -56,6 +56,7 @@ SELECT
   -- FOREIGN KEY
   , fact_so_line.sales_order_key
   , fact_so_line.product_key
+  , fact_so_header.backorder_order_key
   --, fact_so_line.package_type_key
 
   -- Handle NULL khi fact_so_line load full du lieu nhung fact_so_header load thieu du lieu
@@ -63,7 +64,6 @@ SELECT
   , COALESCE(fact_so_header.salesperson_person_key, -1) AS salesperson_person_key
   , COALESCE(fact_so_header.picked_by_person_key, -1) AS picked_by_person_key
   , COALESCE(fact_so_header.contact_person_key, -1) AS contact_person_key
-  , COALESCE(fact_so_header.backorder_order_key, -1) AS backorder_order_key
 
   -- COMPOSITE KEY
   , FARM_FINGERPRINT(
