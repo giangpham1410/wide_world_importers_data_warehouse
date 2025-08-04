@@ -23,11 +23,20 @@ models:
       - name: supplier_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_supplier')
+              field: supplier_key
       
       - name: delivery_method_key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_delivery_method')
+              field: delivery_method_key
       
       - name: contact_person_Key
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_contact_person')
+              field: contact_person_Key
