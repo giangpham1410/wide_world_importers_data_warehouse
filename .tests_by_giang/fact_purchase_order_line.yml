@@ -1,0 +1,68 @@
+version: 2
+
+models:
+  - name: fact_purchase_order_line
+    columns:
+      - name: purchase_order_line_key
+        data_tests:
+          - not_null
+      
+      - name: description
+        data_tests:
+          - not_null
+      
+      - name: is_order_line_finalized
+        data_tests:
+          - not_null
+      
+      - name: is_order_finalized
+        data_tests:
+          - not_null
+      
+      - name: order_date
+        data_tests:
+          - not_null
+      
+      - name: expected_delivery_date
+        data_tests:
+          - not_null
+      
+      - name: last_receipt_date
+        data_tests:
+          - not_null
+      
+      - name: purchase_order_key
+        data_tests:
+          - not_null
+      
+      - name: product_key
+        data_tests:
+          - not_null
+      
+      - name: package_type_key
+        data_tests:
+          - not_null
+      
+      - name: supplier_key
+        data_tests:
+          - not_null
+      
+      - name: delivery_method_key
+        data_tests:
+          - not_null
+      
+      - name: contact_person_Key
+        data_tests:
+          - not_null
+      
+      - name: ordered_outers
+        data_tests:
+          - not_null
+      
+      - name: received_outers
+        data_tests:
+          - not_null
+      
+      - name: expected_unit_price_per_outer
+        data_tests:
+          - not_null
