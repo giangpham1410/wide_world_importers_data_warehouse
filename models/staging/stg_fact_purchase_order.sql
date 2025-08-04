@@ -1,10 +1,10 @@
 WITH
-  stg_fact_purchase_order__source AS (
+  fact_purchase_order__source AS (
     SELECT *
     FROM `vit-lam-data.wide_world_importers.purchasing__purchase_orders`
 )
 
-, stg_fact_purchase_order__rename_column AS (
+, fact_purchase_order__rename_column AS (
     SELECT
       purchase_order_id AS purchase_order_key
       , is_order_finalized AS is_order_finalized_boolean
@@ -13,10 +13,10 @@ WITH
       , supplier_id AS supplier_key
       , delivery_method_id AS delivery_method_key
       , contact_person_id AS contact_person_Key
-    FROM stg_fact_purchase_order__source
+    FROM fact_purchase_order__source
 )
 
-, stg_fact_purchase_order__cast_type AS (
+, fact_purchase_order__cast_type AS (
     SELECT
       CAST(purchase_order_key AS INTEGER) AS purchase_order_key
       , CAST(is_order_finalized_boolean AS BOOLEAN) AS is_order_finalized_boolean
@@ -25,10 +25,10 @@ WITH
       , CAST(supplier_key AS INTEGER) AS supplier_key
       , CAST(delivery_method_key AS INTEGER) AS delivery_method_key
       , CAST(contact_person_Key AS INTEGER) AS contact_person_Key
-    FROM stg_fact_purchase_order__rename_column
+    FROM fact_purchase_order__rename_column
 )
 
-, stg_fact_purchase_order__convert_boolean AS (
+, fact_purchase_order__convert_boolean AS (
     SELECT
       *
       , CASE
@@ -37,8 +37,21 @@ WITH
           WHEN is_order_finalized_boolean IS NULL THEN 'Undefined'
           ELSE 'Invalid'
         END AS is_order_finalized
-    FROM stg_fact_purchase_order__cast_type
+    FROM fact_purchase_order__cast_type
 )
+
+, fact_purchase_order__handle_null AS (
+    SELECT
+      purchase_order_key
+      , COALESCE(is_order_finalized, 'Undefined') AS is_order_finalized
+      , order_date
+      , expected_delivery_date
+      , COALESCE(supplier_key, 0) AS supplier_key
+      , COALESCE(delivery_method_key, 0) AS delivery_method_key
+      , COALESCE(contact_person_Key, 0) AS contact_person_Key
+    FROM fact_purchase_order__convert_boolean
+)
+
 
 SELECT
   purchase_order_key
@@ -48,4 +61,4 @@ SELECT
   , supplier_key
   , delivery_method_key
   , contact_person_Key
-FROM stg_fact_purchase_order__convert_boolean
+FROM fact_purchase_order__handle_null
