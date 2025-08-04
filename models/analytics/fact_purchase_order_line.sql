@@ -47,14 +47,28 @@ WITH
 )
 
 SELECT
-  purchase_order_line_key
-  , description
-  , is_order_line_finalized
-  , last_receipt_date
-  , purchase_order_key
-  , product_key
-  , package_type_key
-  , ordered_outers
-  , received_outers
-  , expected_unit_price_per_outer
-FROM fact_purchase_order_line__convert_boolean
+  fact_po_line.purchase_order_line_key
+  , fact_po_line.description
+  , fact_po_line.is_order_line_finalized
+  , fact_po_header.is_order_finalized
+  
+  -- DATE
+  , fact_po_header.order_date
+  , fact_po_header.expected_delivery_date
+  , fact_po_line.last_receipt_date
+
+  -- FK
+  , fact_po_line.purchase_order_key
+  , fact_po_line.product_key
+  , fact_po_line.package_type_key
+  , fact_po_header.supplier_key
+  , fact_po_header.delivery_method_key
+  , fact_po_header.contact_person_Key
+
+  -- MEASURE
+  , fact_po_line.ordered_outers
+  , fact_po_line.received_outers
+  , fact_po_line.expected_unit_price_per_outer
+FROM fact_purchase_order_line__convert_boolean AS fact_po_line
+  LEFT JOIN {{ ref('stg_fact_purchase_order') }} AS fact_po_header
+    ON fact_po_line.purchase_order_key = fact_po_header.purchase_order_key
