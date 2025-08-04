@@ -57,13 +57,13 @@ SELECT
   , fact_po_header.expected_delivery_date
   , fact_po_line.last_receipt_date
 
-  -- FK
-  , fact_po_line.purchase_order_key
-  , fact_po_line.product_key
-  , fact_po_line.package_type_key
-  , fact_po_header.supplier_key
-  , fact_po_header.delivery_method_key
-  , fact_po_header.contact_person_Key
+  -- FK - Handle Null
+  , COALESCE(fact_po_line.purchase_order_key, -1) AS purchase_order_key
+  , COALESCE(fact_po_line.product_key, -1) AS product_key
+  , COALESCE(fact_po_line.package_type_key, -1) AS package_type_key
+  , COALESCE(fact_po_header.supplier_key, -1) AS supplier_key
+  , COALESCE(fact_po_header.delivery_method_key, -1) AS delivery_method_key
+  , COALESCE(fact_po_header.contact_person_Key, -1) AS contact_person_Key
 
   -- MEASURE
   , fact_po_line.ordered_outers
