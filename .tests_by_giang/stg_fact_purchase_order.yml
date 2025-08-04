@@ -11,6 +11,8 @@ models:
       - name: is_order_finalized
         data_tests:
           - not_null
+          - accepted_values:
+              values: ['Order Finalized', 'Order Not Finalized']
       
       - name: order_date
         data_tests:
