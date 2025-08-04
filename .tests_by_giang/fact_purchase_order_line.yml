@@ -27,10 +27,14 @@ models:
       - name: order_date
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: "'2013-01-01'"
       
       - name: expected_delivery_date
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: "'2013-01-01'"
       
       # - name: last_receipt_date
       #   data_tests:
@@ -63,10 +67,14 @@ models:
       - name: ordered_outers
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
       
       - name: received_outers
         data_tests:
           - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
       
       # - name: expected_unit_price_per_outer
       #   data_tests:
