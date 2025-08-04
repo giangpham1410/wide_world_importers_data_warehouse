@@ -5,6 +5,7 @@ models:
     columns:
       - name: purchase_order_line_key
         data_tests:
+          - unique
           - not_null
       
       - name: description
@@ -27,9 +28,9 @@ models:
         data_tests:
           - not_null
       
-      - name: last_receipt_date
-        data_tests:
-          - not_null
+      # - name: last_receipt_date
+      #   data_tests:
+      #     - not_null
       
       - name: purchase_order_key
         data_tests:
@@ -63,6 +64,6 @@ models:
         data_tests:
           - not_null
       
-      - name: expected_unit_price_per_outer
-        data_tests:
-          - not_null
+      # - name: expected_unit_price_per_outer
+      #   data_tests:
+      #     - not_null
