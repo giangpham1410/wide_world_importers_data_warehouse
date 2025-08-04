@@ -2,6 +2,11 @@ version: 2
 
 models:
   - name: fact_purchase_order_line
+
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: "`vit-lam-data.wide_world_importers.purchasing__purchase_order_lines`"
+
     columns:
       - name: purchase_order_line_key
         data_tests:
