@@ -5,6 +5,7 @@ models:
     columns:
       - name: purchase_order_key
         data_tests:
+          - unique
           - not_null
       
       - name: is_order_finalized
