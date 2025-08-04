@@ -34,5 +34,27 @@ WITH
     FROM fact_purchase_order_line__rename_column
 )
 
-SELECT *
-FROM fact_purchase_order_line__cast_type
+, fact_purchase_order_line__convert_boolean AS (
+    SELECT
+      *
+      , CASE
+          WHEN is_order_line_finalized_boolean IS TRUE THEN 'Order Line Finalized'
+          WHEN is_order_line_finalized_boolean IS FALSE THEN 'Order Line Not Finalized'
+          WHEN is_order_line_finalized_boolean IS NULL THEN 'Undefined'
+          ELSE 'Invalid'
+        END AS is_order_line_finalized
+    FROM fact_purchase_order_line__cast_type
+)
+
+SELECT
+  purchase_order_line_key
+  , description
+  , is_order_line_finalized
+  , last_receipt_date
+  , purchase_order_key
+  , product_key
+  , package_type_key
+  , ordered_outers
+  , received_outers
+  , expected_unit_price_per_outer
+FROM fact_purchase_order_line__convert_boolean
