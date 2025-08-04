@@ -52,7 +52,7 @@ WITH
     SELECT
       sales_order_key
       , is_undersupply_backordered_boolean
-      , COALESCE(customer_purchase_order_number, 'Undefined') AS customer_purchase_order_number
+      , customer_purchase_order_number
       , order_date
       , expected_delivery_date
       , so_picking_completed_at
