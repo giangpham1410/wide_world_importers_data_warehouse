@@ -101,7 +101,7 @@ WITH
 )
 
 SELECT *
-FROM fact_invoice__convert_boolean
+FROM fact_invoice__enrich
 
 
 /*
