@@ -40,7 +40,7 @@ WITH
       , CAST(confirmed_delivery_at AS DATETIME) AS confirmed_delivery_at
       , CAST(confirmed_received_by AS STRING) AS confirmed_received_by
 
-      , TO_JSON_STRING(returned_delivery_data) AS returned_delivery_data
+      , SAFE_CAST(returned_delivery_data AS STRING) AS returned_delivery_data
 
       , CAST(total_dry_items AS INTEGER) AS total_dry_items
       , CAST(total_chiller_items AS INTEGER) AS total_chiller_items
@@ -55,13 +55,16 @@ WITH
     FROM fact_invoice__rename_column
 )
 
-/*
 , fact_invoice__enrich AS (
     SELECT
       *
-      , json_value(returned_delivery_data,N'$.received_by') AS received_by
+      , JSON_VALUE(returned_delivery_data, '$.ReceivedBy') AS received_by
+      , JSON_VALUE(returned_delivery_data, '$.ConNote') AS con_note
+      , JSON_VALUE(returned_delivery_data, '$.Status') AS status
+      , JSON_VALUE(returned_delivery_data, '$.DeliveredWhen') AS delivered_at
     FROM fact_invoice__cast_type
 )
-*/
+
+
 SELECT *
-FROM fact_invoice__cast_type
+FROM fact_invoice__enrich
