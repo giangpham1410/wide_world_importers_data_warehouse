@@ -100,11 +100,7 @@ WITH
     FROM fact_invoice__enrich
 )
 
-SELECT *
-FROM fact_invoice__enrich
 
-
-/*
 SELECT
   invoice_key
   , is_credit_note
@@ -128,4 +124,3 @@ SELECT
   , salesperson_person_key
   , packed_by_person_key
 FROM fact_invoice__handle_null
-*/
