@@ -28,6 +28,7 @@ WITH
     FROM fact_purchase_order__rename_column
 )
 
+/*
 , fact_purchase_order__convert_boolean AS (
     SELECT
       *
@@ -39,23 +40,24 @@ WITH
         END AS is_order_finalized
     FROM fact_purchase_order__cast_type
 )
+*/
 
 , fact_purchase_order__handle_null AS (
     SELECT
       purchase_order_key
-      , COALESCE(is_order_finalized, 'Undefined') AS is_order_finalized
+      , is_order_finalized_boolean
       , order_date
       , expected_delivery_date
       , COALESCE(supplier_key, 0) AS supplier_key
       , COALESCE(delivery_method_key, 0) AS delivery_method_key
       , COALESCE(contact_person_Key, 0) AS contact_person_Key
-    FROM fact_purchase_order__convert_boolean
+    FROM fact_purchase_order__cast_type
 )
 
 
 SELECT
   purchase_order_key
-  , is_order_finalized
+  , is_order_finalized_boolean
   , order_date
   , expected_delivery_date
   , supplier_key
