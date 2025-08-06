@@ -34,6 +34,7 @@ WITH
     FROM fact_purchase_order_line__rename_column
 )
 
+/*
 , fact_purchase_order_line__convert_boolean AS (
     SELECT
       *
@@ -45,12 +46,13 @@ WITH
         END AS is_order_line_finalized
     FROM fact_purchase_order_line__cast_type
 )
+*/
 
 SELECT
   fact_po_line.purchase_order_line_key
   , fact_po_line.description
-  , fact_po_line.is_order_line_finalized
-  , fact_po_header.is_order_finalized
+  --, fact_po_line.is_order_line_finalized_boolean
+  --, fact_po_header.is_order_finalized_boolean
   
   -- DATE
   , fact_po_header.order_date
@@ -60,15 +62,26 @@ SELECT
   -- FK - Handle Null
   , COALESCE(fact_po_line.purchase_order_key, -1) AS purchase_order_key
   , COALESCE(fact_po_line.product_key, -1) AS product_key
-  , COALESCE(fact_po_line.package_type_key, -1) AS package_type_key
   , COALESCE(fact_po_header.supplier_key, -1) AS supplier_key
   , COALESCE(fact_po_header.delivery_method_key, -1) AS delivery_method_key
   , COALESCE(fact_po_header.contact_person_Key, -1) AS contact_person_Key
+  --, COALESCE(fact_po_line.package_type_key, -1) AS package_type_key
+
+  -- FK Indicator
+  , FARM_FINGERPRINT(
+    CONCAT(
+      is_order_finalized_boolean
+      , ','
+      , is_order_line_finalized_boolean
+      , ','
+      , package_type_key
+    )
+  ) AS purchase_order_line_indicator_key
 
   -- MEASURE
   , fact_po_line.ordered_outers
   , fact_po_line.received_outers
   , fact_po_line.expected_unit_price_per_outer
-FROM fact_purchase_order_line__convert_boolean AS fact_po_line
+FROM fact_purchase_order_line__cast_type AS fact_po_line
   LEFT JOIN {{ ref('stg_fact_purchase_order') }} AS fact_po_header
     ON fact_po_line.purchase_order_key = fact_po_header.purchase_order_key
