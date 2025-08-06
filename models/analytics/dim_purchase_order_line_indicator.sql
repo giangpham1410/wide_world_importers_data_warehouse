@@ -17,7 +17,7 @@ WITH
     
     UNION ALL
     SELECT
-      TRUE AS is_order_line_finalized_key
+      FALSE AS is_order_line_finalized_key
       , 'Order Line Not Finalized' AS is_order_line_finalized
 )
 
