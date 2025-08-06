@@ -51,8 +51,8 @@ WITH
 SELECT
   fact_po_line.purchase_order_line_key
   , fact_po_line.description
-  , fact_po_line.is_order_line_finalized_boolean
-  , fact_po_header.is_order_finalized_boolean
+  -- , fact_po_line.is_order_line_finalized_boolean
+  -- , fact_po_header.is_order_finalized_boolean
   
   -- DATE
   , fact_po_header.order_date
@@ -65,7 +65,7 @@ SELECT
   , COALESCE(fact_po_header.supplier_key, -1) AS supplier_key
   , COALESCE(fact_po_header.delivery_method_key, -1) AS delivery_method_key
   , COALESCE(fact_po_header.contact_person_Key, -1) AS contact_person_Key
-  , COALESCE(fact_po_line.package_type_key, -1) AS package_type_key
+  -- , COALESCE(fact_po_line.package_type_key, -1) AS package_type_key
 
   -- FK Indicator
   , FARM_FINGERPRINT(
