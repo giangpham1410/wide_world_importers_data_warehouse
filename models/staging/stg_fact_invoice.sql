@@ -52,6 +52,7 @@ WITH
     FROM fact_invoice__rename_column
 )
 
+/*
 , fact_invoice__convert_boolean AS (
     SELECT
       *
@@ -63,6 +64,7 @@ WITH
         END AS is_credit_note
     FROM fact_invoice__cast_type
 )
+*/
 
 , fact_invoice__enrich AS (
     SELECT
@@ -71,13 +73,13 @@ WITH
       , JSON_VALUE(returned_delivery_data, '$.ConNote') AS con_note
       , JSON_VALUE(returned_delivery_data, '$.Status') AS status
       , JSON_VALUE(returned_delivery_data, '$.DeliveredWhen') AS delivered_at
-    FROM fact_invoice__convert_boolean
+    FROM fact_invoice__cast_type
 )
 
 , fact_invoice__handle_null AS (
     SELECT
       invoice_key
-      , COALESCE(is_credit_note, 'Undefined') AS is_credit_note
+      , is_credit_note_boolean
       , credit_note_reason
       , customer_purchase_order_number
       , invoice_date
@@ -103,7 +105,7 @@ WITH
 
 SELECT
   invoice_key
-  , is_credit_note
+  , is_credit_note_boolean
   , credit_note_reason
   , customer_purchase_order_number
   , invoice_date
