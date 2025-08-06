@@ -58,7 +58,7 @@ SELECT
   , fact_invoice_line.description
 
   -- Invoice Header Information
-  , fact_invoice_header.is_credit_note_boolean
+  --, fact_invoice_header.is_credit_note_boolean
   , fact_invoice_header.credit_note_reason
   , fact_invoice_header.customer_purchase_order_number
   , fact_invoice_header.invoice_date
@@ -74,7 +74,7 @@ SELECT
   -- Invoice Line - FK 
   , fact_invoice_line.invoice_key
   , fact_invoice_line.product_key
-  , fact_invoice_line.package_type_key
+  --, fact_invoice_line.package_type_key
 
   -- Invoice Header - FK
   , COALESCE(fact_invoice_header.sales_order_key, -1) AS sales_order_key
