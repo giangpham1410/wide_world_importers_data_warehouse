@@ -86,6 +86,15 @@ SELECT
   , COALESCE(fact_invoice_header.salesperson_person_key, -1) AS salesperson_person_key
   , COALESCE(fact_invoice_header.packed_by_person_key, -1) AS packed_by_person_key
 
+  -- Indicator FK
+  , FARM_FINGERPRINT(
+    CONCAT(
+      is_credit_note_boolean
+      , ','
+      , package_type_key
+    )
+  ) AS invoice_line_indicator_key
+
   -- Measure
   , fact_invoice_line.quantity
   , fact_invoice_line.unit_price
